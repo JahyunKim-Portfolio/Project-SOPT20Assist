@@ -3,6 +3,8 @@ package com.appjam.assist.assist.data.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
+import android.view.ViewGroup;
 
 import com.appjam.assist.assist.data.ViewPagerFragment.TeamRecordFirstFragment;
 import com.appjam.assist.assist.data.ViewPagerFragment.TeamRecordFourthFragment;
@@ -13,8 +15,11 @@ import com.appjam.assist.assist.model.response.ScoreRank;
 import com.appjam.assist.assist.model.response.Tactic;
 import com.appjam.assist.assist.model.response.TeamMonth;
 import com.appjam.assist.assist.model.response.TeamPlay;
+import com.appjam.assist.assist.test.ListViewActivity;
 
 import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by gominju on 2017. 6. 29..
@@ -27,6 +32,8 @@ public class TeamRecordPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Tactic> tacticList;
     private ArrayList<ScoreRank> scoreRank;
     private ArrayList<AssistRank> assistRank;
+
+    private TeamRecordFirstFragment fragment1;
 
     public TeamRecordPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -48,6 +55,7 @@ public class TeamRecordPagerAdapter extends FragmentStatePagerAdapter {
         this.scoreRank = scoreRank;
         this.assistRank = assistRank;
     }
+
 
     @Override
     public Fragment getItem(int position) {
@@ -72,5 +80,10 @@ public class TeamRecordPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return 4;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+//        super.destroyItem(container, position, object);
     }
 }

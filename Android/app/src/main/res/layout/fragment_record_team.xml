@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="@color/colorWhite"
-                        android:textSize="30sp"
+                        android:textSize="@dimen/large_more_text"
                         android:textStyle="bold"
                         tools:text="30%" />
                 </FrameLayout>

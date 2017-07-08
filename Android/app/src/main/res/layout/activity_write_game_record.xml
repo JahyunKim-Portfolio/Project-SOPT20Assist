@@ -34,16 +34,16 @@
 
         <Button
             android:id="@+id/nextBtn"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="21dp"
             android:background="#00ff0000"
             android:onClick="onClickView"
             android:text="완료"
-            android:textColor="@color/colorTextGray"
-            android:textSize="11sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/large_text" />
 
     </RelativeLayout>
 

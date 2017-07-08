@@ -30,7 +30,7 @@ public class ThreeMonthAdapter extends RecyclerView.Adapter<ThreeMonthAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_threemonth_record, parent, false);
-        BaseActivity.setGlobalFont(context, v);
+//        BaseActivity.setGlobalFont(context, v);
 
         return new MyViewHolder(v);
     }

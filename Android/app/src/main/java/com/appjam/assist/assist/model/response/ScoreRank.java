@@ -1,10 +1,12 @@
 package com.appjam.assist.assist.model.response;
 
+import java.io.Serializable;
+
 /**
  * Created by gominju on 2017. 7. 4..
  */
 
-public class ScoreRank {
+public class ScoreRank implements Serializable{
     private int id;
     private int backnumber;
     private String username;

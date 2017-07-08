@@ -278,7 +278,7 @@
                     <Button
                         android:id="@+id/btn_attend"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="44dp"
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/participation_blue_button" />
@@ -286,10 +286,9 @@
                     <Button
                         android:id="@+id/btn_no_attend"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="44dp"
                         android:layout_weight="1"
                         android:background="@drawable/nonparticipation_blue_button"
-                        android:text="불참가"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/basic_text" />
                 </LinearLayout>
@@ -297,7 +296,7 @@
                 <LinearLayout
                     android:id="@+id/recycler_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"

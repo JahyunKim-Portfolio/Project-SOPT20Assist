@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends BaseActivity {
     private ImageButton btn_back;
     private Button btn_next, btn_check_email;
     private EditText et_name, et_pwd, et_pwd2, et_email;
@@ -45,6 +45,8 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         BaseActivity.setGlobalFont(this, getWindow().getDecorView());
+        changeBarColor();
+
         initView();
         initNetwork();
 
@@ -134,7 +136,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void hideKeyboard() {
+    public void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 

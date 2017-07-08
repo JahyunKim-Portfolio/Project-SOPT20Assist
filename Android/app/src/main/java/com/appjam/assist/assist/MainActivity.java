@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
             if (resultCode == LOGOUT) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 SharedPreferences preferences = getSharedPreferences("appData", MODE_PRIVATE);
-                preferences.edit().remove("ID").commit();
+                //preferences.edit().remove("ID").commit();
                 preferences.edit().remove("PWD").commit();
                 startActivity(intent);
                 finish();

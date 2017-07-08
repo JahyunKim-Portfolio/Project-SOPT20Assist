@@ -1,11 +1,13 @@
 package com.appjam.assist.assist.mypage;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,13 +17,16 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -53,7 +58,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyPageActivity2 extends AppCompatActivity {
+public class MyPageActivity2 extends BaseActivity {
     Uri data;
     final int REQ_CODE_SELECT_IMAGE=100;
     ArrayAdapter<CharSequence> adspin1, adspin2;
@@ -76,35 +81,31 @@ public class MyPageActivity2 extends AppCompatActivity {
     Uri initial_imgUrl;
     private HashMap<String, RequestBody> map;
     private MultipartBody.Part profile_pic;
+    private LinearLayout lin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page2);
         BaseActivity.setGlobalFont(this, getWindow().getDecorView());
+        changeBarColor();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         player_id = preferences.getInt("user_id", 0);
 
+
+        init();
         initNetwork();
         initNetwork2();
 
-        mypage2_sign_up_name_edit = (EditText) findViewById(R.id.mypage2_sign_up_name_edit);
-        mypage2_sign_up_age_edit = (EditText) findViewById(R.id.mypage2_sign_up_age_edit);
-        mypage2_sign_up_height_edit = (EditText) findViewById(R.id.mypage2_sign_up_height_edit);
-        mypage2_sign_up_weight_edit = (EditText) findViewById(R.id.mypage2_sign_up_weight_edit);
-        mypage2_sign_up_foot_edit = (EditText) findViewById(R.id.mypage2_sign_up_foot_edit);
-        mypage2_sign_up_number_edit = (EditText) findViewById(R.id.mypage2_sign_up_number_edit);
-        mypage2_sign_up_email_edit = (TextView) findViewById(R.id.mypage2_sign_up_email_edit);
+        lin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard();
+                return false;
+            }
+        });
 
-        mypage2_back_btn = (ImageButton) findViewById(R.id.mypage2_back_btn);
-        mypage2_finish_btn = (Button) findViewById(R.id.mypage2_finish_btn);
-        mypage2_upload_img = (ImageButton) findViewById(R.id.mypage2_upload_img);
-
-        mypage2_image1 = (ImageView) findViewById(R.id.mypage2_image1);
-        mypage2_image2 = (ImageView) findViewById(R.id.mypage2_image2);
-//        mypage2_image2.setBackground(new ShapeDrawable(new OvalShape()));
-//        mypage2_image2.setClipToOutline(true);
 
         final Spinner spinnermyPosition1 = (Spinner)findViewById(R.id.spinnermyPosition1) ;
         final Spinner spinnermyPosition2 = (Spinner)findViewById(R.id.spinnermyPosition2);
@@ -182,6 +183,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
                     String item = (String) parent.getItemAtPosition(i);
                     ((TextView) parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                     if(decount == 0) {
                         spinnermyPosition2.setSelection(0);
@@ -200,6 +202,7 @@ public class MyPageActivity2 extends AppCompatActivity {
                             choice_se = adspin2.getItem(i).toString();//두번째 선택된 값을 choice_se에 넣습니다.
                             String item = (String) adapterView.getItemAtPosition(i);
                             ((TextView) adapterView.getChildAt(0)).setTextSize(13);
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                         }
 
@@ -214,6 +217,7 @@ public class MyPageActivity2 extends AppCompatActivity {
                     spinnermyPosition2.setAdapter(adspin2);
                     String item = (String) parent.getItemAtPosition(i);
                     ((TextView) parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
 
                     spinnermyPosition2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -222,6 +226,7 @@ public class MyPageActivity2 extends AppCompatActivity {
                             choice_se = adspin2.getItem(i).toString();
                             String item = (String) adapterView.getItemAtPosition(i);
                             ((TextView) adapterView.getChildAt(0)).setTextSize(13);
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
                         }
 
                         @Override
@@ -236,6 +241,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
                     String item = (String) parent.getItemAtPosition(i);
                     ((TextView) parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                     if(decount == 0) {
                         spinnermyPosition2.setSelection(0);
@@ -255,6 +261,7 @@ public class MyPageActivity2 extends AppCompatActivity {
                             choice_se = adspin2.getItem(i).toString();
                             String item = (String) adapterView.getItemAtPosition(i);
                             ((TextView) adapterView.getChildAt(0)).setTextSize(13);
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
                         }
 
                         @Override
@@ -269,6 +276,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
                     String item = (String) parent.getItemAtPosition(i);
                     ((TextView) parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                     if(decount == 0) {
                         spinnermyPosition2.setSelection(0);
@@ -287,6 +295,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
                             String item = (String) adapterView.getItemAtPosition(i);
                             ((TextView) adapterView.getChildAt(0)).setTextSize(13);
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                         }
 
@@ -302,6 +311,8 @@ public class MyPageActivity2 extends AppCompatActivity {
 
             }
         });
+
+
 
         mypage2_back_btn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -332,6 +343,27 @@ public class MyPageActivity2 extends AppCompatActivity {
             }
         });
     }
+
+    private void init() {
+        mypage2_sign_up_name_edit = (EditText) findViewById(R.id.mypage2_sign_up_name_edit);
+        mypage2_sign_up_age_edit = (EditText) findViewById(R.id.mypage2_sign_up_age_edit);
+        mypage2_sign_up_height_edit = (EditText) findViewById(R.id.mypage2_sign_up_height_edit);
+        mypage2_sign_up_weight_edit = (EditText) findViewById(R.id.mypage2_sign_up_weight_edit);
+        mypage2_sign_up_foot_edit = (EditText) findViewById(R.id.mypage2_sign_up_foot_edit);
+        mypage2_sign_up_number_edit = (EditText) findViewById(R.id.mypage2_sign_up_number_edit);
+        mypage2_sign_up_email_edit = (TextView) findViewById(R.id.mypage2_sign_up_email_edit);
+
+        mypage2_back_btn = (ImageButton) findViewById(R.id.mypage2_back_btn);
+        mypage2_finish_btn = (Button) findViewById(R.id.mypage2_finish_btn);
+        mypage2_upload_img = (ImageButton) findViewById(R.id.mypage2_upload_img);
+
+        mypage2_image1 = (ImageView) findViewById(R.id.mypage2_image1);
+        mypage2_image2 = (ImageView) findViewById(R.id.mypage2_image2);
+//        mypage2_image2.setBackground(new ShapeDrawable(new OvalShape()));
+        lin = (LinearLayout)findViewById(R.id.activity_my_page2);
+//        mypage2_image2.setClipToOutline(true);
+    }
+
     ////
     private void makingRequestBody() {
 
@@ -461,7 +493,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
     private void setTeamData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + team.getProfile_pic_url())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
@@ -470,7 +502,7 @@ public class MyPageActivity2 extends AppCompatActivity {
 
     private void setData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/player/" + player.getProfile_pic_url())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
@@ -509,6 +541,12 @@ public class MyPageActivity2 extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public String getImageNameToUri(Uri data) {

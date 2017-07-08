@@ -35,6 +35,7 @@ import com.appjam.assist.assist.model.response.TeamProfileResult;
 import com.appjam.assist.assist.network.ApplicationController;
 import com.appjam.assist.assist.network.NetworkService;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.w3c.dom.Text;
 
@@ -72,7 +73,7 @@ public class PersonalRecordFragment extends Fragment {
     private Pos_DF df;
     private Pos_GK gk;
     private Pos_SUB sub;
-
+    private int cnt = 4;
 
     @Nullable
     @Override
@@ -116,7 +117,7 @@ public class PersonalRecordFragment extends Fragment {
                     networkPagerData();
                     networkTeam(player.getTeam_id());
                     setData();
-                    initViewPager();
+                    //initViewPager();
                 }
             }
 
@@ -127,6 +128,7 @@ public class PersonalRecordFragment extends Fragment {
     }
 
     private void networkPagerData() {
+        cnt = 4;
         Call<PlayerResult> result1 = networkService.getPlayerInfo(player_id);
         result1.enqueue(new Callback<PlayerResult>() {
             @Override
@@ -135,6 +137,9 @@ public class PersonalRecordFragment extends Fragment {
                     playerData = response.body().response;
                     viewPagerAdapter.setPlayerData(playerData);
 //                    setData();
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -153,6 +158,10 @@ public class PersonalRecordFragment extends Fragment {
                     nome = response.body().response.noattend;
                     viewPagerAdapter.setMe(me);
                     viewPagerAdapter.setNome(nome);
+
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -170,6 +179,10 @@ public class PersonalRecordFragment extends Fragment {
                 if (response.isSuccessful()) {
                     monthList = response.body().response;
                     viewPagerAdapter.setMonthList(monthList);
+
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -193,6 +206,10 @@ public class PersonalRecordFragment extends Fragment {
                     viewPagerAdapter.setDf(df);
                     viewPagerAdapter.setMf(mf);
                     viewPagerAdapter.setGk(gk);
+
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -226,7 +243,9 @@ public class PersonalRecordFragment extends Fragment {
 
     private void setTeamData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(iv_team);
         tv_team.setText(team.getTeamname());
@@ -235,7 +254,9 @@ public class PersonalRecordFragment extends Fragment {
 
     private void setData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(iv_plyer);
         tv_user.setText(player.getUsername());

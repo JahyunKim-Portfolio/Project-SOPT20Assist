@@ -16,7 +16,7 @@ import com.appjam.assist.assist.data.fragment.GameRecordFragment;
 import com.appjam.assist.assist.data.fragment.PersonalRecordFragment;
 import com.appjam.assist.assist.data.fragment.TeamRecordFragment;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends BaseActivity {
     private Button btn_home, btn_game, btn_team, btn_personal;
 
     @Override
@@ -25,6 +25,7 @@ public class DataActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_data);
         BaseActivity.setGlobalFont(this, getWindow().getDecorView());
+        changeBarColor();
 
         initView();
 

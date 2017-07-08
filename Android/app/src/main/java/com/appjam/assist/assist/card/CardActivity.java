@@ -26,6 +26,7 @@ import com.appjam.assist.assist.model.response.TeamProfileResult;
 import com.appjam.assist.assist.network.ApplicationController;
 import com.appjam.assist.assist.network.NetworkService;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
@@ -35,7 +36,7 @@ import retrofit2.http.Path;
 
 import static com.appjam.assist.assist.R.id.team;
 
-public class CardActivity extends AppCompatActivity {
+public class CardActivity extends BaseActivity {
     private TextView tv_score, tv_atk, tv_pac, tv_tec, tv_def, tv_sta, tv_phy, tv_name;
     private ImageView iv_profile, iv_logo, background;
     private NetworkService networkService;
@@ -122,14 +123,18 @@ public class CardActivity extends AppCompatActivity {
 
     private void setTeamData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(iv_logo);
     }
 
     private void setData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(iv_profile);
 

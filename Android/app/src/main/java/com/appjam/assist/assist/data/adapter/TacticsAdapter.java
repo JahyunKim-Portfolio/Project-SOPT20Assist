@@ -32,6 +32,7 @@ public class TacticsAdapter extends RecyclerView.Adapter<TacticsAdapter.ViewHold
     private Resources res;
     private Animation growAnim;
     LinearLayout graph_layout;
+    private int total;
 
     public TacticsAdapter(Context context, ArrayList<Tactic> list) {
         this.context = context;
@@ -41,7 +42,7 @@ public class TacticsAdapter extends RecyclerView.Adapter<TacticsAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_vp_team_third, parent, false);
-        BaseActivity.setGlobalFont(context, v);
+//        BaseActivity.setGlobalFont(context, v);
 
         res = context.getResources();
         growAnim = AnimationUtils.loadAnimation(context, R.anim.chart_grow);
@@ -52,6 +53,7 @@ public class TacticsAdapter extends RecyclerView.Adapter<TacticsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Tactic pos_item = list.get(position);
+        total = pos_item.getTotal_game();
         win_game = pos_item.getWin_game();
         draw_game = pos_item.getDraw_game();
         lose_game = pos_item.getLose_game();
@@ -59,9 +61,17 @@ public class TacticsAdapter extends RecyclerView.Adapter<TacticsAdapter.ViewHold
         holder.tv_tactic.setText(pos_item.getTactic());
         holder.tv_num.setText(String.valueOf(pos_item.getTotal_game()));
         holder.tv_result.setText(win_game + "승 " + draw_game + "무 " + lose_game + "패");
-        addItem("win", win_game, R.color.colorSkyBlue);
-        addItem("draw", draw_game, R.color.colorTextGray);
-        addItem("lose", lose_game, R.color.colorAccent);
+        if(total==0){
+            addItem("win", 0, R.color.colorSkyBlue);
+            addItem("draw", 0, R.color.colorTextGray);
+            addItem("lose", 0, R.color.colorAccent);
+
+        }
+        else {
+            addItem("win", win_game * 100 / total, R.color.colorSkyBlue);
+            addItem("draw", draw_game * 100 / total, R.color.colorTextGray);
+            addItem("lose", lose_game * 100 / total, R.color.colorAccent);
+        }
     }
 
     private void addItem(String name, int value, int color) {
@@ -105,7 +115,7 @@ public class TacticsAdapter extends RecyclerView.Adapter<TacticsAdapter.ViewHold
         proBar.setAnimation(growAnim);
 
         params2.height = 20;
-        params2.width = value * 20;
+        params2.width = value*2;
         params2.gravity = Gravity.CENTER_VERTICAL;
         itemLayout.addView(proBar, params2);
 

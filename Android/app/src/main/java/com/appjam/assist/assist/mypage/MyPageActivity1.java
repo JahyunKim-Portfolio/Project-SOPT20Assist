@@ -1,15 +1,19 @@
 package com.appjam.assist.assist.mypage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appjam.assist.assist.BaseActivity;
@@ -30,9 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//로그아웃, 갤러리에서 사진가져오기 구현안됨!!
 
-public class MyPageActivity1 extends AppCompatActivity {
+public class MyPageActivity1 extends BaseActivity {
     private Button adjust_btn;
     private ImageButton home_btn, mypage_logout;
     private TextView mypage1_sign_up_name, mypage1_sign_up_email, mypage1_sign_up_age, mypage1_sign_up_height,
@@ -44,18 +47,28 @@ public class MyPageActivity1 extends AppCompatActivity {
     private Player player;
     private TeamProfile team;
     public static int LOGOUT = 1000;
+    private LinearLayout lin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage1);
         BaseActivity.setGlobalFont(this, getWindow().getDecorView());
+        changeBarColor();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         player_id = preferences.getInt("user_id", 0);
 
         initView();
         initNetwork();
+
+        lin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard();
+                return false;
+            }
+        });
 
         mypage_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +143,12 @@ public class MyPageActivity1 extends AppCompatActivity {
         });
     }
 
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     private void initNetwork() {
         networkService = ApplicationController.getInstance().getNetworkService();
 
@@ -174,14 +193,14 @@ public class MyPageActivity1 extends AppCompatActivity {
 
     private void setTeamData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + team.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + team.getProfile_pic_url())
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(mypage_image1);
     }
 
     private void setData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/player/" + player.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/player/" + player.getProfile_pic_url())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
@@ -215,6 +234,7 @@ public class MyPageActivity1 extends AppCompatActivity {
 
         mypage_image1 = (ImageView) findViewById(R.id.mypage_image1);
         mypage_image2 = (ImageView) findViewById(R.id.mypage_image2);
+        lin = (LinearLayout)findViewById(R.id.activity_my_page);
         //mypage_image2.setBackground(new ShapeDrawable(new OvalShape()));
         //mypage_image2.setClipToOutline(true);
     }

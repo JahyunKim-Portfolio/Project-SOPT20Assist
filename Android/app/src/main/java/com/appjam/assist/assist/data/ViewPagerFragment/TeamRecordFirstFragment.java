@@ -41,6 +41,7 @@ public class TeamRecordFirstFragment extends Fragment {
     private ArrayList<TeamPlay> teamPlay;
 
     public TeamRecordFirstFragment newInstance(ArrayList<TeamPlay> teamPlay) {
+        Log.i("mytag", "TeamRecordFirstFragment, new Instance");
         TeamRecordFirstFragment fragment = new TeamRecordFirstFragment();
         this.teamPlay = teamPlay;
 
@@ -51,6 +52,10 @@ public class TeamRecordFirstFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Nullable
     @Override
@@ -58,11 +63,13 @@ public class TeamRecordFirstFragment extends Fragment {
         v = inflater.inflate(R.layout.vp_team_first, container, false);
         BaseActivity.setGlobalFont(getContext(), getActivity().getWindow().getDecorView());
 
-        teamPlay = (ArrayList<TeamPlay>)getArguments().getSerializable("data");
+        teamPlay = (ArrayList<TeamPlay>) getArguments().getSerializable("data");
+        Log.i("mytag", "TeamRecordFirstFragment, teamplay.size : " + teamPlay.size());
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         team_id = preferences.getInt("team_id", 0);
         initView();
+        setData(teamPlay);
 //        initNetwork();
         return v;
     }
@@ -90,138 +97,181 @@ public class TeamRecordFirstFragment extends Fragment {
 
     public void setData(ArrayList<TeamPlay> teamPlay) {
         int play_num = teamPlay.size();
-        Log.i("mytag", "play_num.size : " + play_num);
-        boolean p1 = false, p2 = false, p3 = false, p4 = false, p5 = false;
-
-        switch (play_num) {
-            case 0:
-                break;
-            case 1:
-                p1 = true;
-                break;
-            case 2:
-                p1 = true;
-                p2 = true;
-                break;
-            case 3:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                break;
-            case 4:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                break;
-            case 5:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                p5 = true;
-                break;
-            default:
-                break;
-        }
-        if (p1) {
-            int num_win1 = teamPlay.get(0).getScore_team();
-            int num_lose1 = teamPlay.get(0).getScore_against_team();
-            if (num_win1 > num_lose1) {
-                tv_result1.setText("승");
-                iv_result1.setBackgroundResource(R.drawable.oval_pink);
-            } else if (num_win1 < num_lose1) {
-                tv_result1.setText("패");
-                iv_result1.setBackgroundResource(R.drawable.oval_skyblue);
-            } else {
-                tv_result1.setText("무");
-                iv_result1.setBackgroundResource(R.drawable.oval_gray);
+        int cnt = 0;
+        if (cnt < play_num) {
+            while (true) {
+                if (cnt >= play_num) {
+                    iv_result1.setBackgroundResource(R.drawable.oval_navy);
+                    tv_date1.setText("");
+                    tv_score1.setText("-:-");
+                    break;
+                }
+                int num_win1 = teamPlay.get(cnt).getScore_team();
+                int num_lose1 = teamPlay.get(cnt).getScore_against_team();
+                if (num_win1 == -1) {
+                    cnt++;
+                    continue;
+                } else {
+                    if (num_win1 > num_lose1) {
+                        tv_result1.setText("승");
+                        iv_result1.setBackgroundResource(R.drawable.oval_skyblue);
+                    } else if (num_win1 < num_lose1) {
+                        tv_result1.setText("패");
+                        iv_result1.setBackgroundResource(R.drawable.oval_pink);
+                    } else {
+                        tv_result1.setText("무");
+                        iv_result1.setBackgroundResource(R.drawable.oval_gray);
+                        tv_score1.setText(num_win1 + ":" + num_lose1);
+                    }
+                    String date1 = teamPlay.get(cnt).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(cnt).getGame_dt().substring(8, 10) + "일";
+                    tv_date1.setText(date1);
+                    tv_score1.setText(num_win1 + ":" + num_lose1);
+                    cnt++;
+                    break;
+                }
             }
-            String date1 = teamPlay.get(0).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(0).getGame_dt().substring(8, 10) + "일";
-            tv_date1.setText(date1);
-            tv_score1.setText(num_win1 + " : " + num_lose1);
         } else {
             iv_result1.setBackgroundResource(R.drawable.oval_navy);
             tv_result1.setText("-");
             tv_date1.setText("");
-            tv_score1.setText("- : -");
+            tv_score1.setText("-:-");
         }
 
-        if (p2) {
-            int num_win2 = teamPlay.get(1).getScore_team();
-            int num_lose2 = teamPlay.get(1).getScore_against_team();
-            if (num_win2 > num_lose2) {
-                iv_result2.setBackgroundResource(R.drawable.oval_pink);
-            } else if (num_win2 < num_lose2) {
-                iv_result2.setBackgroundResource(R.drawable.oval_skyblue);
-            } else {
-                iv_result2.setBackgroundResource(R.drawable.oval_gray);
+        if (cnt < play_num) {
+            while (true) {
+                if (cnt >= play_num) {
+                    iv_result2.setBackgroundResource(R.drawable.oval_navy);
+                    tv_date2.setText("");
+                    tv_score2.setText("-:-");
+                    break;
+                }
+                int num_win2 = teamPlay.get(cnt).getScore_team();
+                int num_lose2 = teamPlay.get(cnt).getScore_against_team();
+                if (num_win2 == -1) {
+                    cnt++;
+                    continue;
+                } else {
+                    if (num_win2 > num_lose2) {
+                        iv_result2.setBackgroundResource(R.drawable.oval_skyblue);
+                    } else if (num_win2 < num_lose2) {
+                        iv_result2.setBackgroundResource(R.drawable.oval_pink);
+                    } else {
+                        iv_result2.setBackgroundResource(R.drawable.oval_gray);
+                    }
+                    String date2 = teamPlay.get(cnt).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(cnt).getGame_dt().substring(8, 10) + "일";
+                    tv_date2.setText(date2);
+                    tv_score2.setText(num_win2 + ":" + num_lose2);
+                    cnt++;
+                    break;
+                }
             }
-            String date2 = teamPlay.get(1).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(1).getGame_dt().substring(8, 10) + "일";
-            tv_date2.setText(date2);
-            tv_score2.setText(num_win2 + " : " + num_lose2);
         } else {
             iv_result2.setBackgroundResource(R.drawable.oval_navy);
             tv_date2.setText("");
-            tv_score2.setText("- : -");
+            tv_score2.setText("-:-");
         }
 
-        if (p3) {
-            int num_win3 = teamPlay.get(2).getScore_team();
-            int num_lose3 = teamPlay.get(2).getScore_against_team();
-            if (num_win3 > num_lose3) {
-                iv_result3.setBackgroundResource(R.drawable.oval_pink);
-            } else if (num_win3 < num_lose3) {
-                iv_result3.setBackgroundResource(R.drawable.oval_skyblue);
-            } else {
-                iv_result3.setBackgroundResource(R.drawable.oval_gray);
+        if (cnt < play_num) {
+            while (true) {
+                if (cnt >= play_num) {
+                    iv_result3.setBackgroundResource(R.drawable.oval_navy);
+                    tv_date3.setText("");
+                    tv_score3.setText("-:-");
+                    break;
+                }
+                int num_win3 = teamPlay.get(cnt).getScore_team();
+                int num_lose3 = teamPlay.get(cnt).getScore_against_team();
+                if (num_win3 == -1) {
+                    cnt++;
+                    continue;
+                } else {
+                    if (num_win3 > num_lose3) {
+                        iv_result3.setBackgroundResource(R.drawable.oval_skyblue);
+                    } else if (num_win3 < num_lose3) {
+                        iv_result3.setBackgroundResource(R.drawable.oval_pink);
+                    } else {
+                        iv_result3.setBackgroundResource(R.drawable.oval_gray);
+                    }
+                    String date3 = teamPlay.get(cnt).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(cnt).getGame_dt().substring(8, 10) + "일";
+                    tv_date3.setText(date3);
+                    tv_score3.setText(num_win3 + ":" + num_lose3);
+                    cnt++;
+                    break;
+                }
             }
-            String date3 = teamPlay.get(2).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(2).getGame_dt().substring(8, 10) + "일";
-            tv_date3.setText(date3);
-            tv_score3.setText(num_win3 + " : " + num_lose3);
         } else {
             iv_result3.setBackgroundResource(R.drawable.oval_navy);
             tv_date3.setText("");
-            tv_score3.setText("- : -");
+            tv_score3.setText("-:-");
         }
 
 
-        if (p4) {
-            int num_win4 = teamPlay.get(3).getScore_team();
-            int num_lose4 = teamPlay.get(3).getScore_against_team();
-            if (num_win4 > num_lose4) {
-                iv_result4.setBackgroundResource(R.drawable.oval_pink);
-            } else if (num_win4 < num_lose4) {
-                iv_result4.setBackgroundResource(R.drawable.oval_skyblue);
-            } else {
-                iv_result4.setBackgroundResource(R.drawable.oval_gray);
+        if (cnt < play_num) {
+            while (true) {
+                if (cnt >= play_num) {
+                    iv_result4.setBackgroundResource(R.drawable.oval_navy);
+                    tv_date4.setText("");
+                    tv_score4.setText("-:-");
+                    break;
+                }
+                int num_win4 = teamPlay.get(cnt).getScore_team();
+                int num_lose4 = teamPlay.get(cnt).getScore_against_team();
+                if (num_win4 == -1) {
+                    cnt++;
+                    continue;
+                } else {
+                    if (num_win4 > num_lose4) {
+                        iv_result4.setBackgroundResource(R.drawable.oval_skyblue);
+                    } else if (num_win4 < num_lose4) {
+                        iv_result4.setBackgroundResource(R.drawable.oval_pink);
+                    } else {
+                        iv_result4.setBackgroundResource(R.drawable.oval_gray);
+                    }
+                    String date4 = teamPlay.get(cnt).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(cnt).getGame_dt().substring(8, 10) + "일";
+                    tv_date4.setText(date4);
+                    tv_score4.setText(num_win4 + ":" + num_lose4);
+                    cnt++;
+                    break;
+                }
             }
-            String date4 = teamPlay.get(3).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(3).getGame_dt().substring(8, 10) + "일";
-            tv_date4.setText(date4);
-            tv_score4.setText(num_win4 + " : " + num_lose4);
         } else {
             iv_result4.setBackgroundResource(R.drawable.oval_navy);
             tv_date4.setText("");
-            tv_score4.setText("- : -");
+            tv_score4.setText("-:-");
         }
 
-        if (p5) {
-            int num_win5 = teamPlay.get(4).getScore_team();
-            int num_lose5 = teamPlay.get(4).getScore_against_team();
-            if (num_win5 > num_lose5) {
-                iv_result5.setBackgroundResource(R.drawable.oval_pink);
-            } else if (num_win5 < num_lose5) {
-                iv_result5.setBackgroundResource(R.drawable.oval_skyblue);
-            } else {
-                iv_result5.setBackgroundResource(R.drawable.oval_gray);
+        if (cnt < play_num) {
+            while (true) {
+                if (cnt >= play_num) {
+                    iv_result5.setBackgroundResource(R.drawable.oval_navy);
+                    tv_date5.setText("");
+                    tv_score5.setText("-:-");
+                    break;
+                }
+                int num_win5 = teamPlay.get(cnt).getScore_team();
+                int num_lose5 = teamPlay.get(cnt).getScore_against_team();
+                if (num_win5 == -1) {
+                    cnt++;
+                    continue;
+                } else {
+                    if (num_win5 > num_lose5) {
+                        iv_result5.setBackgroundResource(R.drawable.oval_skyblue);
+                    } else if (num_win5 < num_lose5) {
+                        iv_result5.setBackgroundResource(R.drawable.oval_pink);
+                    } else {
+                        iv_result5.setBackgroundResource(R.drawable.oval_gray);
+                    }
+                    String date5 = teamPlay.get(cnt).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(cnt).getGame_dt().substring(8, 10) + "일";
+                    tv_date5.setText(date5);
+                    tv_score5.setText(num_win5 + ":" + num_lose5);
+                    cnt++;
+                    break;
+                }
             }
-            String date5 = teamPlay.get(4).getGame_dt().substring(5, 7) + "월 " + teamPlay.get(4).getGame_dt().substring(8, 10) + "일";
-            tv_date5.setText(date5);
-            tv_score5.setText(num_win5 + " : " + num_lose5);
         } else {
             iv_result5.setBackgroundResource(R.drawable.oval_navy);
             tv_date5.setText("");
-            tv_score5.setText("- : -");
+            tv_score5.setText("-:-");
         }
     }
 

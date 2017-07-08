@@ -81,7 +81,7 @@ public class TeamMainFragment extends Fragment {
 
     private void setData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(iv_profile);
         tv_teamname.setText(teamProfile.getTeamname());

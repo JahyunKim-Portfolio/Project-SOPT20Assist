@@ -61,32 +61,12 @@ public class TeamRecordThirdFragment extends Fragment {
         team_id = preferences.getInt("team_id", 0);
 
         initView();
-//        initNetwork();
+
+        adapter = new TacticsAdapter(getContext(), list);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
 
         return v;
-    }
-
-    private void initNetwork() {
-        networkService = ApplicationController.getInstance().getNetworkService();
-
-        Call<TacticResult> result = networkService.getTacticList(team_id);
-        result.enqueue(new Callback<TacticResult>() {
-            @Override
-            public void onResponse(Call<TacticResult> call, Response<TacticResult> response) {
-                if (response.isSuccessful()) {
-                    list = response.body().response;
-
-                    adapter = new TacticsAdapter(getContext(), list);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TacticResult> call, Throwable t) {
-
-            }
-        });
     }
 
     private void initView() {

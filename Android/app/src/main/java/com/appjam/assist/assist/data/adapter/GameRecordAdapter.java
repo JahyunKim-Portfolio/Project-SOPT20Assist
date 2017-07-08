@@ -33,7 +33,7 @@ public class GameRecordAdapter extends RecyclerView.Adapter<GameRecordAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_game_record, parent, false);
-        BaseActivity.setGlobalFont(context, v);
+//        BaseActivity.setGlobalFont(context, v);
         return new ViewHolder(v);
     }
 

@@ -69,30 +69,11 @@ public class PersonalSecondFragment extends Fragment {
         player_id = preferences.getInt("user_id", 0);
         lineChart = (LineChart) v.findViewById(R.id.chart);
 
-//        initNetwork();
+        setGraphData(list);
 
         return v;
     }
 
-    private void initNetwork() {
-        networkService = ApplicationController.getInstance().getNetworkService();
-
-        Call<PlayerMonthResult> result = networkService.getPlayerMonthList(player_id);
-        result.enqueue(new Callback<PlayerMonthResult>() {
-            @Override
-            public void onResponse(Call<PlayerMonthResult> call, Response<PlayerMonthResult> response) {
-                if (response.isSuccessful()) {
-                    list = response.body().response;
-                    setGraphData(list);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PlayerMonthResult> call, Throwable t) {
-
-            }
-        });
-    }
 
     private void setGraphData(ArrayList<PlayerMonth> list) {
         ArrayList<String> labels = new ArrayList<String>();
@@ -106,103 +87,107 @@ public class PersonalSecondFragment extends Fragment {
         labels.add("");
 
         int list_num = list.size();
-        boolean p1 = false, p2 = false, p3 = false, p4 = false, p5 = false, p6 = false;
-        float score1, score2, score3, score4, score5, score6;
-        float assist1, assist2, assist3, assist4, assist5, assist6;
-        float lose1, lose2, lose3, lose4, lose5, lose6;
+        float score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0;
+        float assist1 = 0, assist2 = 0, assist3 = 0, assist4 = 0, assist5 = 0, assist6 = 0;
+        float lose1 = 0, lose2 = 0, lose3 = 0, lose4 = 0, lose5 = 0, lose6 = 0;
 
-        switch (list_num) {
-            case 0:
-                break;
-            case 1:
-                p1 = true;
-                break;
-            case 2:
-                p1 = true;
-                p2 = true;
-                break;
-            case 3:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                break;
-            case 4:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                break;
-            case 5:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                p5 = true;
-                break;
-            case 6:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                p5 = true;
-                p6 = true;
-            default:
-                break;
-        }
+        int cnt = 0;
 
-        if (p1) {
-            score1 = list.get(0).getScore();
-            lose1 = list.get(0).getScore_against();
-            assist1 = list.get(0).getAssist();
-        } else {
-            score1 = 0;
-            assist1 = 0;
-            lose1 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score6 = 0;
+                    assist6 = 0;
+                    lose6 = 0;
+                    break;
+                } else {
+                    score6 = list.get(cnt).getScore();
+                    lose6 = list.get(cnt).getScore_against();
+                    assist6 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p2) {
-            score2 = list.get(1).getScore();
-            lose2 = list.get(1).getScore_against();
-            assist2 = list.get(1).getAssist();
-        } else {
-            score2 = 0;
-            assist2 = 0;
-            lose2 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score5 = 0;
+                    assist5 = 0;
+                    lose5 = 0;
+                    break;
+                } else {
+                    score5 = list.get(cnt).getScore();
+                    lose5 = list.get(cnt).getScore_against();
+                    assist5 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p3) {
-            score3 = list.get(2).getScore();
-            lose3 = list.get(2).getScore_against();
-            assist3 = list.get(2).getAssist();
-        } else {
-            score3 = 0;
-            assist3 = 0;
-            lose3 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score4 = 0;
+                    assist4 = 0;
+                    lose4 = 0;
+                    break;
+                } else {
+                    score4 = list.get(cnt).getScore();
+                    lose4 = list.get(cnt).getScore_against();
+                    assist4 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p4) {
-            score4 = list.get(3).getScore();
-            lose4 = list.get(3).getScore_against();
-            assist4 = list.get(3).getAssist();
-        } else {
-            score4 = 0;
-            assist4 = 0;
-            lose4 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score3 = 0;
+                    assist3 = 0;
+                    lose3 = 0;
+                    break;
+                } else {
+                    score3 = list.get(cnt).getScore();
+                    lose3 = list.get(cnt).getScore_against();
+                    assist3 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p5) {
-            score5 = list.get(4).getScore();
-            lose5 = list.get(4).getScore_against();
-            assist5 = list.get(4).getAssist();
-        } else {
-            score5 = 0;
-            assist5 = 0;
-            lose5 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score2 = 0;
+                    assist2 = 0;
+                    lose2 = 0;
+                    break;
+                } else {
+                    score2 = list.get(cnt).getScore();
+                    lose2 = list.get(cnt).getScore_against();
+                    assist2 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p6) {
-            score6 = list.get(5).getScore();
-            lose6 = list.get(5).getScore_against();
-            assist6 = list.get(5).getAssist();
-        } else {
-            score6 = 0;
-            assist6 = 0;
-            lose6 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score1 = 0;
+                    assist1 = 0;
+                    lose1 = 0;
+                    break;
+                } else {
+                    score1 = list.get(cnt).getScore();
+                    lose1 = list.get(cnt).getScore_against();
+                    assist1 = list.get(cnt).getAssist();
+                    cnt++;
+                    break;
+                }
+            }
         }
         // 그래프 3번째 데이터 추가
         ArrayList<Entry> entries3 = new ArrayList<>();
@@ -224,12 +209,12 @@ public class PersonalSecondFragment extends Fragment {
 
 
         ArrayList<Entry> entries1 = new ArrayList<>();
-        entries1.add(new Entry(lose1, 1));
-        entries1.add(new Entry(lose2, 2));
-        entries1.add(new Entry(lose3, 3));
-        entries1.add(new Entry(lose4, 4));
-        entries1.add(new Entry(lose5, 5));
-        entries1.add(new Entry(lose6, 6));
+        entries1.add(new Entry(score1, 1));
+        entries1.add(new Entry(score2, 2));
+        entries1.add(new Entry(score3, 3));
+        entries1.add(new Entry(score4, 4));
+        entries1.add(new Entry(score5, 5));
+        entries1.add(new Entry(score6, 6));
 
 
         ArrayList<LineDataSet> lines = new ArrayList<LineDataSet>();
@@ -297,7 +282,7 @@ public class PersonalSecondFragment extends Fragment {
 
         lineChart.setDescription(""); // 설명 없애기
         for (int i = 0; i < 100; i++) {
-            lineChart.animateX(3000, Easing.EasingOption.Linear); // 애니메이션 효과
+            lineChart.animateX(4000, Easing.EasingOption.Linear); // 애니메이션 효과
 
         }
         lineChart.setBorderColor(Color.WHITE);

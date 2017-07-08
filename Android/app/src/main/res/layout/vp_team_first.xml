@@ -64,9 +64,9 @@
 
         <ImageView
             android:id="@+id/iv_result2"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/oval_gray" />
 
         <View
             android:layout_width="35dp"
@@ -75,9 +75,9 @@
 
         <ImageView
             android:id="@+id/iv_result3"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/oval_gray" />
 
         <View
             android:layout_width="35dp"
@@ -86,9 +86,9 @@
 
         <ImageView
             android:id="@+id/iv_result4"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/oval_gray" />
 
         <View
             android:layout_width="35dp"
@@ -97,9 +97,9 @@
 
         <ImageView
             android:id="@+id/iv_result5"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/oval_gray" />
 
     </LinearLayout>
 
@@ -113,8 +113,8 @@
             android:id="@+id/tv_date1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="36dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/small_text"
@@ -124,7 +124,7 @@
             android:id="@+id/tv_date2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="36dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/small_text"
@@ -135,7 +135,7 @@
             android:id="@+id/tv_date3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="38dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/small_text"
@@ -146,7 +146,7 @@
             android:id="@+id/tv_date4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="38dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/small_text"
@@ -174,21 +174,21 @@
             android:id="@+id/tv_score1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="39dp"
-            android:layout_marginLeft="44dp"
+            android:layout_marginLeft="39dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/basic_text"
             tools:text="3 : 3" />
 
         <TextView
             android:id="@+id/tv_score2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/basic_text"
             tools:text="3 : 3" />
 
 
@@ -196,10 +196,10 @@
             android:id="@+id/tv_score3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="37dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/basic_text"
             tools:text="3 : 3" />
 
 
@@ -207,10 +207,10 @@
             android:id="@+id/tv_score4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/basic_text"
             tools:text="3 : 3" />
 
 
@@ -220,7 +220,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/basic_text"
             tools:text="3 : 3" />
 
     </LinearLayout>

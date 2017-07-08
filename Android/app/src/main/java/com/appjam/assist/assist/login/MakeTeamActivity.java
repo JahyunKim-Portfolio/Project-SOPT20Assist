@@ -1,5 +1,6 @@
 package com.appjam.assist.assist.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,15 +9,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.appjam.assist.assist.BaseActivity;
 import com.appjam.assist.assist.R;
 import com.appjam.assist.assist.model.request.SignUp;
 
-public class MakeTeamActivity extends AppCompatActivity {
+public class MakeTeamActivity extends BaseActivity {
     private Button btn_search, btn_make, btn_back;
-    private String name, email, pwd,token;
+    private String name, email, pwd, token;
     private int type;
     //, foot, position, detail_position;
     //int age, backnum;
@@ -29,6 +31,8 @@ public class MakeTeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_team);
         BaseActivity.setGlobalFont(this, getWindow().getDecorView());
+        changeBarColor();
+
         btn_search = (Button) findViewById(R.id.btn__search);
         btn_make = (Button) findViewById(R.id.btn_make);
         btn_back = (Button) findViewById(R.id.btn_back);
@@ -41,7 +45,7 @@ public class MakeTeamActivity extends AppCompatActivity {
         email = intent.getStringExtra("email");
         type = intent.getIntExtra("type", 0);
 
-        if(type == 1) {
+        if (type == 1) {
             token = intent.getStringExtra("token");
             SignUp.signUp.setToken(token);
             SignUp.signUp.setType(1);
@@ -112,6 +116,7 @@ public class MakeTeamActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

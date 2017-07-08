@@ -48,7 +48,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="팀명"
@@ -81,28 +81,40 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="지역"
                 android:textColor="@color/colorSkyBlue"
                 android:textSize="@dimen/basic_text" />
 
-            <Spinner
-                android:id="@+id/spinner_region"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="38dp"
-                android:layout_marginRight="91dp"
-                android:background="@null"
-                android:elevation="12dp"
-                android:gravity="left"
-                android:popupBackground="@drawable/round_spinner_drop"
-                android:spinnerMode="dropdown"
-                android:src="@drawable/ic_expand_more_s"
-                android:textColor="@color/colorWhite"
-                android:textSize="13sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner_region"
+                    android:layout_width="100dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="91dp"
+                    android:background="@null"
+                    android:elevation="12dp"
+                    android:gravity="left"
+                    android:popupBackground="@drawable/round_spinner_drop"
+                    android:spinnerMode="dropdown"
+                    android:src="@drawable/ic_expand_more_s"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="112dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_expand_more_l"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -118,7 +130,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="감독"
@@ -150,7 +162,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="창단일"
@@ -178,7 +190,7 @@
             android:background="@color/colorSkyBlue" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingLeft="10dp"

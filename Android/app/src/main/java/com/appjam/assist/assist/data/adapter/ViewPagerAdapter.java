@@ -3,6 +3,7 @@ package com.appjam.assist.assist.data.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.appjam.assist.assist.data.ViewPagerFragment.PersonalFirstFragment;
 import com.appjam.assist.assist.data.ViewPagerFragment.PersonalSecondFragment;

@@ -574,7 +574,7 @@ public class WriteGameRecordActivity extends AppCompatActivity implements OnClic
         }
 
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + gameData.getProfile_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + gameData.getProfile_url())
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(iv_logo1);
     }

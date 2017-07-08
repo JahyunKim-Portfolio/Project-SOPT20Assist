@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.appjam.assist.assist.BaseActivity;
 import com.appjam.assist.assist.R;
 import com.appjam.assist.assist.data.MyValueFormatter;
+import com.appjam.assist.assist.model.response.Pos_GK;
 import com.appjam.assist.assist.model.response.TeamMonth;
 import com.appjam.assist.assist.model.response.TeamMonthResult;
 import com.appjam.assist.assist.model.response.TeamPlay;
@@ -68,33 +69,16 @@ public class TeamRecordSecondFragment extends Fragment {
         team_id = preferences.getInt("team_id", 0);
         lineChart = (LineChart) v.findViewById(R.id.chart);
 
-//        initNetwork();
+        setGraphData(list);
 
         return v;
     }
 
-    private void initNetwork() {
-        networkService = ApplicationController.getInstance().getNetworkService();
-
-        Call<TeamMonthResult> result = networkService.getMonthList(team_id);
-        result.enqueue(new Callback<TeamMonthResult>() {
-            @Override
-            public void onResponse(Call<TeamMonthResult> call, Response<TeamMonthResult> response) {
-                if (response.isSuccessful()) {
-                    list = response.body().response;
-                    setGraphData(list);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TeamMonthResult> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     private void setGraphData(ArrayList<TeamMonth> list) {
+        float score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0, score6 = 0;
+        float ag_score1 = 0, ag_score2 = 0, ag_score3 = 0, ag_score4 = 0, ag_score5 = 0, ag_score6 = 0;
+
         ArrayList<String> labels = new ArrayList<String>();
         labels.add(" ");
         labels.add("1");
@@ -106,91 +90,95 @@ public class TeamRecordSecondFragment extends Fragment {
         labels.add("");
 
         int list_num = list.size();
-        boolean p1 = false, p2 = false, p3 = false, p4 = false, p5 = false, p6 = false;
-        float score1, score2, score3, score4, score5, score6;
-        float ag_score1, ag_score2, ag_score3, ag_score4, ag_score5, ag_score6;
+        int cnt = 0;
 
-        switch (list_num) {
-            case 0:
-                break;
-            case 1:
-                p1 = true;
-                break;
-            case 2:
-                p1 = true;
-                p2 = true;
-                break;
-            case 3:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                break;
-            case 4:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                break;
-            case 5:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                p5 = true;
-                break;
-            case 6:
-                p1 = true;
-                p2 = true;
-                p3 = true;
-                p4 = true;
-                p5 = true;
-                p6 = true;
-                break;
-            default:
-                break;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score6 = 0;
+                    ag_score6 = 0;
+                    break;
+                } else {
+                    score6 = list.get(cnt).getAvg_score();
+                    ag_score6 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
+
+        }
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score5 = 0;
+                    ag_score5 = 0;
+                    break;
+                } else {
+                    score5 = list.get(cnt).getAvg_score();
+                    ag_score5 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
+        }
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score4 = 0;
+                    ag_score4 = 0;
+                    break;
+                } else {
+                    score4 = list.get(cnt).getAvg_score();
+                    ag_score4 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
         }
 
-        if (p1) {
-            score1 = list.get(0).getAvg_score();
-            ag_score1 = list.get(0).getAvg_score_against();
-        } else {
-            score1 = 0;
-            ag_score1 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score3 = 0;
+                    ag_score3 = 0;
+                    break;
+                } else {
+                    score3 = list.get(cnt).getAvg_score();
+                    ag_score3 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
+
         }
-        if (p2) {
-            score2 = list.get(1).getAvg_score();
-            ag_score2 = list.get(1).getAvg_score_against();
-        } else {
-            score2 = 0;
-            ag_score2 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score2 = 0;
+                    ag_score2 = 0;
+                    break;
+                } else {
+                    score2 = list.get(cnt).getAvg_score();
+                    ag_score2 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
         }
-        if (p3) {
-            score3 = list.get(2).getAvg_score();
-            ag_score3 = list.get(2).getAvg_score_against();
-        } else {
-            score3 = 0;
-            ag_score3 = 0;
-        }
-        if (p4) {
-            score4 = list.get(3).getAvg_score();
-            ag_score4 = list.get(3).getAvg_score_against();
-        } else {
-            score4 = 0;
-            ag_score4 = 0;
-        }
-        if (p5) {
-            score5 = list.get(4).getAvg_score();
-            ag_score5 = list.get(4).getAvg_score_against();
-        } else {
-            score5 = 0;
-            ag_score5 = 0;
-        }
-        if (p6) {
-            score6 = list.get(5).getAvg_score();
-            ag_score6 = list.get(5).getAvg_score_against();
-        } else {
-            score6 = 0;
-            ag_score6 = 0;
+        if (cnt < list_num) {
+            while (true) {
+                if (cnt >= list_num) {
+                    score1 = 0;
+                    ag_score1 = 0;
+                    break;
+                } else {
+                    score1 = list.get(cnt).getAvg_score();
+                    ag_score1 = list.get(cnt).getAvg_score_against();
+                    cnt++;
+                    break;
+                }
+            }
+
         }
 
         ArrayList<Entry> entries2 = new ArrayList<>();
@@ -268,7 +256,7 @@ public class TeamRecordSecondFragment extends Fragment {
 
         lineChart.setDescription(""); // 설명 없애기
         for (int i = 0; i < 100; i++) {
-            lineChart.animateX(3000, Easing.EasingOption.Linear); // 애니메이션 효과
+            lineChart.animateX(4000, Easing.EasingOption.Linear); // 애니메이션 효과
 
         }
         lineChart.setBorderColor(Color.WHITE);

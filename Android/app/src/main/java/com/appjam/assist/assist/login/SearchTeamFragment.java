@@ -1,6 +1,7 @@
 package com.appjam.assist.assist.login;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.appjam.assist.assist.BaseActivity;
 import com.appjam.assist.assist.R;
@@ -48,6 +53,8 @@ public class SearchTeamFragment extends Fragment {
     private Spinner spinner_region;
     private String region;
     private SearchResult searchResult;
+    private ArrayAdapter<CharSequence> arrayAdapter;
+    private LinearLayout linearLayout;
 
 //    private String imgUrl;
 //    private Uri uri_data;
@@ -67,6 +74,8 @@ public class SearchTeamFragment extends Fragment {
 //        return fragement;
 //    }
 
+
+
     public SearchTeamFragment getInstance(SignUp signUp) {
         SearchTeamFragment fragment = new SearchTeamFragment();
         this.signUp = signUp;
@@ -82,6 +91,19 @@ public class SearchTeamFragment extends Fragment {
         initNetwork();
 
         Log.i("mytag", "SearchTeamFragment, type = " + SignUp.signUp.getType());
+
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard();
+                return false;
+            }
+        });
+
+        arrayAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.spinnerlocal_do, android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner_region.setAdapter(arrayAdapter);
+
 
 //        Bundle bundle = getArguments();
 //        imgUrl = bundle.getString("imgUrl");
@@ -109,6 +131,9 @@ public class SearchTeamFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 region = parent.getItemAtPosition(position).toString();
+                String item = (String) parent.getItemAtPosition(position);
+                ((TextView) parent.getChildAt(0)).setTextSize(13);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.GRAY);
             }
 
             @Override
@@ -193,6 +218,11 @@ public class SearchTeamFragment extends Fragment {
         networkService = ApplicationController.getInstance().getNetworkService();
     }
 
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     private void initView() {
         btn_clear = (Button) v.findViewById(R.id.btn_clear);
         btn_search = (Button) v.findViewById(R.id.btn_search);
@@ -204,6 +234,6 @@ public class SearchTeamFragment extends Fragment {
         et_teamname = (EditText) v.findViewById(R.id.et_teamname);
         et_manager = (EditText) v.findViewById(R.id.et_manager);
         spinner_region = (Spinner) v.findViewById(R.id.spinneLocal);
-        spinner_region.setPrompt("성남시");
+        linearLayout = (LinearLayout) v.findViewById(R.id.linearLayout_team_search);
     }
 }

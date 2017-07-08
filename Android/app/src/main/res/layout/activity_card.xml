@@ -15,8 +15,8 @@
 
         <Button
             android:id="@+id/btn_home"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/go_home" />
 
         <Button
@@ -37,7 +37,8 @@
     <RelativeLayout
         android:id="@+id/all_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/card_background">
 
         <!-- ////////////////////////// 전체 이미지 ////////////////////// -->
 
@@ -91,6 +92,7 @@
             android:elevation="8dp"
             android:layout_below="@+id/card_position"
             android:layout_alignStart="@+id/imageView"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp" />
 
         <TextView

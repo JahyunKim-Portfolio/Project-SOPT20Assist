@@ -59,13 +59,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
                 android:background="@null"
-                android:popupBackground="@drawable/round_spinner_drop"
                 android:gravity="center"
-                android:textSize="@dimen/basic_text"
+                android:popupBackground="@drawable/round_spinner_drop"
                 android:spinnerMode="dropdown"
-                android:textColor="@color/colorTextGray" />
+                android:textColor="@color/colorTextGray"
+                android:textSize="@dimen/basic_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -93,8 +92,8 @@
             android:layout_height="34dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/round_white"
-            android:paddingLeft="10dp"
             android:imeOptions="actionDone"
+            android:paddingLeft="10dp"
             android:singleLine="true"
             android:textColor="#95989A"
             android:textSize="13sp" />
@@ -106,19 +105,19 @@
 
             <Button
                 android:id="@+id/btn_clear"
-                android:layout_weight="1"
                 android:layout_width="138dp"
                 android:layout_height="25dp"
+                android:layout_weight="1"
                 android:background="@drawable/gray_button_initialization"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/basic_text" />
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_weight="1"
                 android:layout_width="138dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/blue_button_search"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/basic_text" />
@@ -174,7 +173,7 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="5dp"
-            android:background="#5095989A" />
+            android:background="@color/colorPrimary" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"

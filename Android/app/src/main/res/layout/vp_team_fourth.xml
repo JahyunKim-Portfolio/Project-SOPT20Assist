@@ -47,15 +47,15 @@
 
                 <ImageView
                     android:id="@+id/iv_score1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_score_name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -64,7 +64,7 @@
                     android:id="@+id/tv_score_num1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="12득점" />
@@ -79,15 +79,15 @@
 
                 <ImageView
                     android:id="@+id/iv_score2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_score_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -96,7 +96,7 @@
                     android:id="@+id/tv_score_num2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -111,15 +111,15 @@
 
                 <ImageView
                     android:id="@+id/iv_score3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_score_name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -128,7 +128,7 @@
                     android:id="@+id/tv_score_num3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -143,15 +143,15 @@
 
                 <ImageView
                     android:id="@+id/iv_score4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_score_name4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -160,7 +160,7 @@
                     android:id="@+id/tv_score_num4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -206,15 +206,15 @@
 
                 <ImageView
                     android:id="@+id/iv_assist1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_assist_name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -223,7 +223,7 @@
                     android:id="@+id/tv_assist_num1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -238,15 +238,15 @@
 
                 <ImageView
                     android:id="@+id/iv_assist2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_assist_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -255,7 +255,7 @@
                     android:id="@+id/tv_assist_num2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -270,15 +270,15 @@
 
                 <ImageView
                     android:id="@+id/iv_assist3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_assist_name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -287,7 +287,7 @@
                     android:id="@+id/tv_assist_num3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -302,15 +302,15 @@
 
                 <ImageView
                     android:id="@+id/iv_assist4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/profile_s_teamdata" />
 
                 <TextView
                     android:id="@+id/tv_assist_name4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />
@@ -319,7 +319,7 @@
                     android:id="@+id/tv_assist_num4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/basic_text"
                     tools:text="오혜성" />

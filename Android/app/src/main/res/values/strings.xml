@@ -34,7 +34,6 @@
 
     <string-array name="spinnerlocal_do">
         <item>성남시</item>
-        <item>서울시</item>
     </string-array>
 
     <string-array name="spinnermyPosition1_do">

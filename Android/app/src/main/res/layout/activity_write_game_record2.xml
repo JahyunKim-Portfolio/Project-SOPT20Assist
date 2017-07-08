@@ -33,16 +33,16 @@
 
         <Button
             android:id="@+id/completeBtn"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="21dp"
             android:background="#00ff0000"
             android:onClick="onClickView"
             android:text="완료"
-            android:textColor="@color/colorTextGray"
-            android:textSize="11sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/large_text" />
 
     </RelativeLayout>
 
@@ -193,8 +193,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="17.5dp"
+                        android:layout_marginLeft="15.5dp"
                         android:layout_marginTop="11dp"
+                        android:paddingLeft="3.5dp"
                         android:text="후보"
                         android:textColor="#ffffff"
                         android:textSize="11sp" />
@@ -206,8 +207,8 @@
                         android:layout_alignBottom="@+id/backImg"
                         android:layout_marginBottom="19dp"
                         android:layout_marginLeft="19dp"
-                        android:gravity="center"
-                        android:background="@drawable/reserve_chevron_left" />
+                        android:background="@drawable/reserve_chevron_left"
+                        android:gravity="center" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView_h"
@@ -215,8 +216,8 @@
                         android:layout_height="40dp"
                         android:layout_alignBottom="@+id/backImg"
                         android:layout_centerHorizontal="true"
-                        tools:listitem="@layout/item_write_game_r2_h"
-                        android:layout_marginBottom="10dp"></android.support.v7.widget.RecyclerView>
+                        android:layout_marginBottom="10dp"
+                        tools:listitem="@layout/item_write_game_r2_h"></android.support.v7.widget.RecyclerView>
 
                     <Button
                         android:id="@+id/next_player"
@@ -313,6 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <LinearLayout

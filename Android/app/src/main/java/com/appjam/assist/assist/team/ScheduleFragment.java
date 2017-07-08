@@ -270,8 +270,8 @@ public class ScheduleFragment extends Fragment {
                     schedule_id = item.getId();
 
                     // 참가 불참가 인원 가져와서, 버튼 색 표시하기
-                    btn_attend.setBackgroundResource(R.drawable.round_blue);
-                    btn_no_attend.setBackgroundResource(R.drawable.round_blue);
+                    btn_attend.setBackgroundResource(R.drawable.participation_blue_button);
+                    btn_no_attend.setBackgroundResource(R.drawable.nonparticipation_blue_button);
                     networkAttendList(schedule_id);
                 }
             }

@@ -24,6 +24,7 @@ import com.appjam.assist.assist.model.response.TeamProfileResult;
 import com.appjam.assist.assist.network.ApplicationController;
 import com.appjam.assist.assist.network.NetworkService;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.HashMap;
 
@@ -137,7 +138,9 @@ public class SearchTeamResultFragment extends Fragment {
 
 //        // 프로필 세팅
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(iv_profile);
         tv_teamname.setText(teamProfile.getTeamname());
@@ -151,15 +154,15 @@ public class SearchTeamResultFragment extends Fragment {
             dosomething((int)percent_num);
         } else {
             // 평균 득점 : 득점 / 총 경기수 * 100
-            float avg_total = (float) (teamProfile.getWin_game()) / teamProfile.getTotal_game() * 100;
+            float avg_total = (float) (teamProfile.getWin_game()) / teamProfile.getTotal_game() ;
             String str_avg_total = String.format("%.2f", avg_total);
             tv_avr_total.setText("평균 득점 " + str_avg_total);
             // 평균 실점
-            float avg_against = (float) (teamProfile.getLose_game()) / teamProfile.getTotal_game() * 100;
+            float avg_against = (float) (teamProfile.getLose_game()) / teamProfile.getTotal_game();
             String str_avg_against = String.format("%.2f", avg_against);
             tv_avr_against.setText("평균 실점 " + str_avg_against);
             // 승률 : 승 경기수 / 승 게임수
-            percent_num = (float) (teamProfile.getWin_game()) / teamProfile.getTotal_game() * 100;
+            percent_num = (float) (teamProfile.getWin_game() * 100/ teamProfile.getTotal_game()) ;
             Log.i("mytag", "SearchTeamResultFragment, percent_num : " + percent_num);
             dosomething(((int) percent_num));
         }

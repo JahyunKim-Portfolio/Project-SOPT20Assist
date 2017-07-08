@@ -48,12 +48,12 @@ public class PersonalThirdFragment extends Fragment {
 
     public PersonalThirdFragment newInstance(Pos_ATK atk, Pos_DF df, Pos_GK gk, Pos_MF mf) {
         PersonalThirdFragment fragment = new PersonalThirdFragment();
-        this.atk =atk;
+        this.atk = atk;
         this.df = df;
         this.mf = mf;
         this.gk = gk;
 
-        Bundle bundle =new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putSerializable("atk", atk);
         bundle.putSerializable("df", df);
         bundle.putSerializable("mf", mf);
@@ -61,7 +61,7 @@ public class PersonalThirdFragment extends Fragment {
 
         fragment.setArguments(bundle);
 
-        return  fragment;
+        return fragment;
     }
 
     @Nullable
@@ -71,8 +71,8 @@ public class PersonalThirdFragment extends Fragment {
         BaseActivity.setGlobalFont(getContext(), getActivity().getWindow().getDecorView());
 
         atk = (Pos_ATK) getArguments().getSerializable("atk");
-        df = (Pos_DF)getArguments().getSerializable("df");
-        mf = (Pos_MF)getArguments().getSerializable("mf");
+        df = (Pos_DF) getArguments().getSerializable("df");
+        mf = (Pos_MF) getArguments().getSerializable("mf");
         gk = (Pos_GK) getArguments().getSerializable("gk");
 
 
@@ -80,32 +80,9 @@ public class PersonalThirdFragment extends Fragment {
         player_id = preferences.getInt("user_id", 0);
 
         initView();
-//        initNetwork();
+        setData();
 
         return v;
-    }
-
-    private void initNetwork() {
-        networkService = ApplicationController.getInstance().getNetworkService();
-
-        Call<PositionResult> result = networkService.getPositionList(player_id);
-        result.enqueue(new Callback<PositionResult>() {
-            @Override
-            public void onResponse(Call<PositionResult> call, Response<PositionResult> response) {
-                if (response.isSuccessful()) {
-                    atk = response.body().response.ATK;
-                    df = response.body().response.DF;
-                    gk = response.body().response.GK;
-                    mf = response.body().response.MF;
-                    setData();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PositionResult> call, Throwable t) {
-
-            }
-        });
     }
 
     private void setData() {
@@ -122,13 +99,13 @@ public class PersonalThirdFragment extends Fragment {
             doAttBar(att_percent);
 
         } else {
-            float att_total = (float) (atk.getScore_team() / atk.getTotal_game());
+            float att_total =  ((float)atk.getScore_team() / atk.getTotal_game());
             String str_att_total = String.format("%.2f", att_total);
             tv_att_total.setText(str_att_total);
-            float att_against = (float) (atk.getScore_against_team() / atk.getTotal_game());
+            float att_against =  ((float)atk.getScore_against_team() / atk.getTotal_game());
             String str_att_against = String.format("%.2f", att_against);
             tv_att_against.setText(str_att_against);
-            att_percent = (atk.getWin_game() / atk.getTotal_game()) * 100;
+            att_percent = (atk.getWin_game() * 100 / atk.getTotal_game());
             doAttBar(att_percent);
         }
 
@@ -141,13 +118,13 @@ public class PersonalThirdFragment extends Fragment {
             mf_percent = 0;
             doMfBar(mf_percent);
         } else {
-            float mf_total = (float) (mf.getScore_team() / mf.getTotal_game());
+            float mf_total =  ((float)mf.getScore_team() / mf.getTotal_game());
             String str_mf_total = String.format("%.2f", mf_total);
             tv_mf_total.setText(str_mf_total);
-            float mf_against = (float) (mf.getScore_against_team() / mf.getTotal_game());
+            float mf_against =  ((float)mf.getScore_against_team() / mf.getTotal_game());
             String str_mf_against = String.format("%.2f", mf_against);
             tv_mf_against.setText(str_mf_against);
-            mf_percent = (mf.getWin_game() / mf.getTotal_game()) * 100;
+            mf_percent = (mf.getWin_game() * 100 / mf.getTotal_game());
             doMfBar(mf_percent);
         }
 
@@ -159,21 +136,21 @@ public class PersonalThirdFragment extends Fragment {
         int total_win = gk.getWin_game() + df.getWin_game();
         int gk_percent;
         if (avg_total != 0) {
-            float gk_total = (float) (avg_total / total);
+            float gk_total =  ((float)avg_total / total);
             String str_gk_total = String.format("%.2f", gk_total);
             tv_gk_total.setText(str_gk_total);
         } else {
             tv_gk_total.setText("0.0");
         }
         if (avg_against != 0) {
-            float gk_against = (float) (avg_against / total);
+            float gk_against = ((float) avg_against / total);
             String str_gk_against = String.format("%.2f", gk_against);
             tv_gk_against.setText(str_gk_against);
         } else {
             tv_gk_against.setText(String.valueOf(0.0));
         }
         if (total_win != 0) {
-            gk_percent = total_win / total * 100;
+            gk_percent = total_win * 100 / total;
             doGkBar(gk_percent);
         } else {
             gk_percent = 0;

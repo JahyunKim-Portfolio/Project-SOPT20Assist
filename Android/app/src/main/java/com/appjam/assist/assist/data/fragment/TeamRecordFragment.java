@@ -70,6 +70,7 @@ public class TeamRecordFragment extends Fragment {
     private ArrayList<ScoreRank> scoreRank;
     private ArrayList<AssistRank> assistRank;
     private TeamRecordPagerAdapter viewPagerAdapter;
+    private int cnt = 4;
 
     @Nullable
     @Override
@@ -83,6 +84,7 @@ public class TeamRecordFragment extends Fragment {
         viewPagerAdapter = new TeamRecordPagerAdapter(getFragmentManager());
         initView();
         initNetwork();
+        initPagerNetwork();
 
         return v;
     }
@@ -95,9 +97,7 @@ public class TeamRecordFragment extends Fragment {
             @Override
             public void onResponse(Call<TeamProfileResult> call, Response<TeamProfileResult> response) {
                 teamProfile = response.body().response;
-                initPagerNetwork();
                 setMainData();
-                initViewPager();
             }
 
             @Override
@@ -115,8 +115,13 @@ public class TeamRecordFragment extends Fragment {
             public void onResponse(Call<TeamPlayResult> call, Response<TeamPlayResult> response) {
                 if (response.isSuccessful()) {
                     teamPlay = response.body().response;
+                    Log.i("mytag", "TeamRecordFragment, first pager network");
                     viewPagerAdapter.setFirstData(teamPlay);
 //                    setData(teamPlay);
+
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -136,6 +141,9 @@ public class TeamRecordFragment extends Fragment {
                     monthList = response.body().response;
                     viewPagerAdapter.setSecondData(monthList);
 //                    setGraphData(list);
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -156,6 +164,9 @@ public class TeamRecordFragment extends Fragment {
 //                    adapter = new TacticsAdapter(getContext(), list);
 //                    adapter.notifyDataSetChanged();
 //                    recyclerView.setAdapter(adapter);
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
                 }
             }
 
@@ -174,6 +185,9 @@ public class TeamRecordFragment extends Fragment {
                     scoreRank = response.body().response.score;
                     assistRank = response.body().response.assist;
                     viewPagerAdapter.setFrouthData(scoreRank, assistRank);
+                    if (--cnt == 0) {
+                        initViewPager();
+                    }
 //                    setListData();
                 }
             }
@@ -188,7 +202,7 @@ public class TeamRecordFragment extends Fragment {
 
     private void setMainData() {
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(iv_profile);
         tv_teamname.setText(teamProfile.getTeamname());
@@ -196,15 +210,15 @@ public class TeamRecordFragment extends Fragment {
 
         tv_record.setText(teamProfile.getWin_game() + "승 " + teamProfile.getDraw_game() + "무 " + teamProfile.getLose_game() + "패");
         // 평균 득점 : 득점 / 총 경기수 * 100
-        float avg_total = (float) (teamProfile.getWin_game()) / teamProfile.getTotal_game() * 100;
+        float avg_total = (float) (teamProfile.getTotal_score() / teamProfile.getTotal_game());
         String str_avg_total = String.format("%.2f", avg_total);
         tv_avr_total.setText("평균 득점 " + str_avg_total);
         // 평균 실점 : 실점 / 총 경기수 * 100
-        float avg_against = (float) (teamProfile.getLose_game()) / teamProfile.getTotal_game() * 100;
+        float avg_against = (float) (teamProfile.getTotal_score_against() / teamProfile.getTotal_game());
         String str_avg_against = String.format("%.2f", avg_against);
         tv_avr_against.setText("평균 실점 " + str_avg_against);
         // 승률 : 승 경기수 / 승 게임수
-        percent_num = (float) (teamProfile.getWin_game()) / teamProfile.getTotal_game() * 100;
+        percent_num = (float) (teamProfile.getWin_game() * 100 / teamProfile.getTotal_game());
         if ((int) percent_num == 0) {
             percent.setText("0%");
         } else {

@@ -13,7 +13,7 @@
         android:text="포지션별 기록"
         android:layout_marginTop="10dp"
         android:textColor="@color/colorSkyBlue"
-        android:textSize="@dimen/large_text"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -26,7 +26,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:orientation="vertical">
@@ -44,23 +44,13 @@
                 android:layout_marginTop="10dp"
                 android:text="공격수"
                 android:textColor="@color/colorSkyBlue"
-                android:textSize="@dimen/basic_text" />
+                android:textSize="8sp" />
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-
-            <ProgressBar
-                android:id="@+id/bar_attack"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_centerHorizontal="true"
-                android:indeterminate="false"
-                android:max="100"
-                android:progressDrawable="@drawable/circular_progress_bar" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,109 +71,127 @@
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
                 android:text="0%" />
+
+            <ProgressBar
+                android:id="@+id/bar_attack"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progressDrawable="@drawable/circular_progress_bar" />
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_attack_goal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="골"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/tv_attack_assist"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="도움"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_attack_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="골"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_attack_avg_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균득점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_attack_avg_against"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:id="@+id/tv_attack_assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="도움"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균실점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_attack_avg_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균득점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_attack_avg_against"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균실점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -197,7 +205,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:orientation="vertical">
@@ -214,7 +222,7 @@
                 android:layout_marginTop="10dp"
                 android:text="미드필더"
                 android:textColor="@color/colorSkyBlue"
-                android:textSize="@dimen/basic_text" />
+                android:textSize="8sp" />
         </LinearLayout>
 
         <FrameLayout
@@ -252,108 +260,113 @@
                 android:max="100"
                 android:progressDrawable="@drawable/circular_progress_bar" />
         </FrameLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_mf_goal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="골"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_mf_assist"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center">
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="도움"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_mf_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="골"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_mf_avg_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균득점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_mf_avg_against"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:id="@+id/tv_mf_assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="도움"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균실점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_mf_avg_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균득점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_mf_avg_against"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균실점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -367,7 +380,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:orientation="vertical">
@@ -385,13 +398,13 @@
                 android:layout_marginTop="5dp"
                 android:text="수비수"
                 android:textColor="@color/colorSkyBlue"
-                android:textSize="@dimen/basic_text" />
+                android:textSize="8sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="골키퍼"
                 android:textColor="@color/colorSkyBlue"
-                android:textSize="@dimen/basic_text" />
+                android:textSize="8sp" />
         </LinearLayout>
 
         <FrameLayout
@@ -431,81 +444,87 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/tv_gk_nogoal"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="무실점 경기"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="13dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_gk_avg_total"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균득점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_gk_nogoal"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="17dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="무실점 경기"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_gk_avg_against"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text"
-                android:textStyle="bold"
-                tools:text="3" />
+                android:layout_marginLeft="13dp"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:id="@+id/tv_gk_avg_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균득점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:text="평균실점"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/basic_text" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_gk_avg_against"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/basic_text"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="평균실점"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-

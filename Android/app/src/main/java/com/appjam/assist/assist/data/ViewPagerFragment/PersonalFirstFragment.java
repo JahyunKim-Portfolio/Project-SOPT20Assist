@@ -44,7 +44,7 @@ public class PersonalFirstFragment extends Fragment {
     public PersonalFirstFragment newInstance(Player player, AffectMe me, AffectNoMe nome) {
         PersonalFirstFragment fragment = new PersonalFirstFragment();
         this.player = player;
-        this.me=me;
+        this.me = me;
         this.nome = nome;
 
         Bundle bundle = new Bundle();
@@ -64,80 +64,44 @@ public class PersonalFirstFragment extends Fragment {
 
         player = (Player) getArguments().getSerializable("data");
         me = (AffectMe) getArguments().getSerializable("me");
-        nome = (AffectNoMe)getArguments().getSerializable("nome");
+        nome = (AffectNoMe) getArguments().getSerializable("nome");
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         player_id = preferences.getInt("user_id", 0);
 
         initView();
-        //initNetwork();
-
+        setData();
+        setAffectData();
         return v;
     }
 
-    private void initNetwork() {
-        networkService = ApplicationController.getInstance().getNetworkService();
-
-        Call<PlayerResult> result = networkService.getPlayerInfo(player_id);
-        result.enqueue(new Callback<PlayerResult>() {
-            @Override
-            public void onResponse(Call<PlayerResult> call, Response<PlayerResult> response) {
-                if (response.isSuccessful()) {
-                    player = response.body().response;
-                    setData();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PlayerResult> call, Throwable t) {
-
-            }
-        });
-
-//        Call<TeamAffectResult> resultCall = networkService.getAffectList(player_id);
-//        resultCall.enqueue(new Callback<TeamAffectResult>() {
-//            @Override
-//            public void onResponse(Call<TeamAffectResult> call, Response<TeamAffectResult> response) {
-//                if (response.isSuccessful()) {
-//                    me = response.body().response.attend;
-//                    nome = response.body().response.noattend;
-//                    setAffectData();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TeamAffectResult> call, Throwable t) {
-//                Log.i("mytag", "PersonalFirstFragment, 실패");
-//            }
-//        });
-    }
 
     private void setAffectData() {
         // 승률 : 승 경기수 / 총 게임수 * 100
         if (me.getTotal_game() == 0) {
             tv_me_rate.setText("0%");
-            tv_me_avgtotal.setText("0%");
-            tv_me_avglose.setText("0%");
+            tv_me_avgtotal.setText("0.00");
+            tv_me_avglose.setText("0.00");
         } else {
-            tv_me_rate.setText(me.getWin_game() / me.getTotal_game() * 100 + "%");
-            float me_total = (float) (me.getScore_team() / me.getTotal_game());
+            tv_me_rate.setText(me.getWin_game() * 100 / me.getTotal_game() + "%");
+            float me_total =  ((float)me.getScore_team() / me.getTotal_game());
             String str_me_total = String.format("%.2f", me_total);
             tv_me_avgtotal.setText(str_me_total);
-            float me_lose = (float) (me.getScore_against_team() / me.getTotal_game());
+            float me_lose = ((float) me.getScore_against_team() / me.getTotal_game());
             String str_me_lose = String.format("%.2f", me_lose);
             tv_me_avglose.setText(str_me_lose);
         }
 
         if (nome.getTotal_game() == 0) {
             tv_rate.setText("0%");
-            tv_not_total.setText("0%");
-            tv_not_lose.setText("0%");
+            tv_not_total.setText("0.00");
+            tv_not_lose.setText("0.00");
         } else {
-            tv_rate.setText(nome.getWin_game() / nome.getTotal_game() + "%");
-            float not_total = (float) (nome.getScore_team() / nome.getTotal_game());
+            tv_rate.setText(nome.getWin_game() * 100 / nome.getTotal_game() + "%");
+            float not_total =  ((float)nome.getScore_team() / nome.getTotal_game());
             String str_not_total = String.format("%.2f", not_total);
             tv_not_total.setText(str_not_total);
-            float not_lose = (float) (nome.getScore_against_team() / nome.getTotal_game());
+            float not_lose =  ((float)nome.getScore_against_team() / nome.getTotal_game());
             String str_not_lose = String.format("%.2f", not_lose);
             tv_not_lose.setText(str_not_lose);
         }

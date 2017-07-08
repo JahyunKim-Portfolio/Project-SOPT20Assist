@@ -39,10 +39,15 @@ public class DataRecyclerAdapter extends RecyclerView.Adapter<DataViewHolder> {
         this.onClickListener = onClickListener;
     }
 
+    public void update(ArrayList<TeamPlay> list) {
+        itemdatas = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_record, parent, false);
-        BaseActivity.setGlobalFont(context, view);
+//        BaseActivity.setGlobalFont(context, view);
         DataViewHolder viewHolder = new DataViewHolder(view);
         view.setOnClickListener(onClickListener);
         return viewHolder;
@@ -55,7 +60,7 @@ public class DataRecyclerAdapter extends RecyclerView.Adapter<DataViewHolder> {
         get_date = item.getGame_dt().substring(0, 4) + "년 " + item.getGame_dt().substring(5, 7) + "월 " + item.getGame_dt().substring(8, 10) + "일";
         holder.item_date.setText(get_date);
         Glide.with(context)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + teamProfile.getProfile_pic_url())
                 .bitmapTransform(new CropCircleTransformation(context))
                 .into(holder.item_logo1);
         holder.item_name1.setText(teamProfile.getTeamname());

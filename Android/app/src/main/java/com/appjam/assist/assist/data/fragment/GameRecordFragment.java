@@ -72,7 +72,7 @@ public class GameRecordFragment extends Fragment {
 //            goal_count = data.getExtras().getInt("write1_goal");
 //            goal_conceded = data.getExtras().getInt("write1_conceded");
 
-            onResume();
+            networkTeamProfile();
         }
     }
 
@@ -80,7 +80,10 @@ public class GameRecordFragment extends Fragment {
     public void onResume() {
         super.onResume();
 //        networkTeamList(teamProfile);
+//        networkTeamProfile();
         setData(teamProfile);
+//        networkTeamList(teamProfile);
+        recyclerAdapter.notifyDataSetChanged();
     }
 
 
@@ -143,6 +146,7 @@ public class GameRecordFragment extends Fragment {
 
     private void setData(final TeamProfile teamProfile) {
         recyclerAdapter = new DataRecyclerAdapter(getApplicationContext(), playList, teamProfile, clickEvent);
+        recyclerAdapter.update(playList);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerAdapter.notifyDataSetChanged();
     }

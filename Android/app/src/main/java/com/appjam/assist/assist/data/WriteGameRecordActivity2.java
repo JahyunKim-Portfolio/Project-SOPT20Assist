@@ -130,7 +130,6 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
         intent = getIntent();
         tactic = intent.getStringExtra("tactic");
         schedule_id = intent.getIntExtra("schedule_id", 0);
-        Log.i("mytag", "schedule_id : " + schedule_id);
         type = intent.getStringExtra("type");
         gameData = (Game) getIntent().getSerializableExtra("gameData");
         initNetworkBase();
@@ -154,7 +153,7 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
 
             eventList = new ArrayList<>();
             setData2();
-           // initNetwork2(tactic, schedule_id);
+            // initNetwork2(tactic, schedule_id);
         }
 
         itemdata = new ArrayList<Itemdata_recyclerview>();
@@ -244,15 +243,15 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
         lose_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isBtn1 == false && isBtn2 == false) // 프래그먼트의 버튼, 후보의 버튼 둘 다 안눌렸을 때
-                    Toast.makeText(getApplicationContext(), "플레이어를 선택해주세요", Toast.LENGTH_SHORT).show();
-                else if (isBtn1 == true && isBtn2 == false) // 프래그먼트의 버튼, 즉 지금 뛰는 선수를 눌렀을 때
+//                if (isBtn1 == false && isBtn2 == false) // 프래그먼트의 버튼, 후보의 버튼 둘 다 안눌렸을 때
+//                    Toast.makeText(getApplicationContext(), "플레이어를 선택해주세요", Toast.LENGTH_SHORT).show();
+                if (isBtn1 == true && isBtn2 == false) // 프래그먼트의 버튼, 즉 지금 뛰는 선수를 눌렀을 때
                 {
                     itemdata3.add(new Itemdata_recyclerview3("실점", imgid3));
                     itemdata.add(new Itemdata_recyclerview("", imgNo));
                     GameEvent event = new GameEvent();
                     event.setType("score_against");
-                    event.setPlayer_id(select_player_id);
+//                    event.setPlayer_id(select_player_id);
                     eventList.add(event);
 
                     whatGoal = 2;
@@ -265,7 +264,7 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
                     itemdata.add(new Itemdata_recyclerview("", imgNo));
                     GameEvent event = new GameEvent();
                     event.setType("score_against");
-                    event.setPlayer_id(select_sub_id);
+//                    event.setPlayer_id(select_sub_id);
                     eventList.add(event);
 
                     whatGoal = 2;
@@ -375,7 +374,7 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
             tv_score2.setText(String.valueOf(gameData.getScore2()));
         }
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + gameData.getProfile_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + gameData.getProfile_url())
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(iv_logo1);
     }
@@ -410,25 +409,35 @@ public class WriteGameRecordActivity2 extends AppCompatActivity implements TestF
 
     private void setEventData() {
         for (int i = 0; i < eventList.size(); i++) {
+            Log.i("MyTag", eventList.get(i).getType() + " " + eventList.get(i).getPlayer_id());
+        }
+
+//        recyclerAdapter = new WriteRecyclerAdapter(itemdata);
+//        recyclerView.setAdapter(recyclerAdapter);
+//        recyclerAdapter2 = new WriteRecyclerAdapter2(itemdata2);
+//        recyclerView2.setAdapter(recyclerAdapter2);
+//        recyclerAdapter3 = new WriteRecyclerAdapter3(itemdata3);
+//        recyclerView3.setAdapter(recyclerAdapter3);
+        for (int i = 0; i < eventList.size(); i++) {
             if (eventList.get(i).getType().equals("score")) {
                 score_name = getPlayerName(eventList.get(i).getPlayer_id());
                 itemdata.add(new Itemdata_recyclerview(score_name, imgid1));
+                itemdata2.add(new Itemdata_recyclerview2("", imgNo));
+                itemdata3.add(new Itemdata_recyclerview3("", imgNo));
             }
             if (eventList.get(i).getType().equals("assist")) {
+                itemdata2.remove(itemdata2.size() - 1);
                 assist_name = getPlayerName(eventList.get(i).getPlayer_id());
                 itemdata2.add(new Itemdata_recyclerview2(assist_name, imgid2));
             }
             if (eventList.get(i).getType().equals("score_against")) {
-                itemdata3.add(new Itemdata_recyclerview3("", imgid3));
+                itemdata.add(new Itemdata_recyclerview("", imgNo));
+                itemdata2.add(new Itemdata_recyclerview2("", imgNo));
+                itemdata3.add(new Itemdata_recyclerview3("실점", imgid3));
             }
+            Update();
+            scrollToEnd();
         }
-
-        recyclerAdapter = new WriteRecyclerAdapter(itemdata);
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerAdapter2 = new WriteRecyclerAdapter2(itemdata2);
-        recyclerView2.setAdapter(recyclerAdapter2);
-        recyclerAdapter3 = new WriteRecyclerAdapter3(itemdata3);
-        recyclerView3.setAdapter(recyclerAdapter3);
     }
 
     private String getPlayerName(int id) {

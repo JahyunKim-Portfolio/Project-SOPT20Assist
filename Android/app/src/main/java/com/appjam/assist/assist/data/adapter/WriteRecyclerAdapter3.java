@@ -30,7 +30,7 @@ public class WriteRecyclerAdapter3 extends RecyclerView.Adapter<WriteViewHolder>
     @Override
     public WriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_write_game_3, parent, false);
-        BaseActivity.setGlobalFont(parent.getContext(), view);
+//        BaseActivity.setGlobalFont(parent.getContext(), view);
         WriteViewHolder viewHolder = new WriteViewHolder(view);
 
         return viewHolder;

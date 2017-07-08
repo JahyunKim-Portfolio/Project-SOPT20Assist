@@ -34,7 +34,7 @@ public class RankingRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0) {
+        if (position == 0) {
             return TYPE_HEADER;
         } else
             return TYPE_ITEM;
@@ -42,7 +42,7 @@ public class RankingRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
             View v = LayoutInflater.from(context).inflate(R.layout.item_rank_recyclerview_header, parent, false);
             BaseActivity.setGlobalFont(context, v);
             return new HeaderViewHolder(v);
@@ -69,22 +69,20 @@ public class RankingRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             Ranking currentItem = item.get(position - 1);
             baseViewHolder.custom_item_rank.setText(String.valueOf(currentItem.getRank()));
             baseViewHolder.custom_item_team_name.setText(currentItem.getTeamname());
-            baseViewHolder.custom_item_all.setText(String .valueOf(currentItem.getTotal_game()));
+            baseViewHolder.custom_item_all.setText(String.valueOf(currentItem.getTotal_game()));
             baseViewHolder.custom_item_win.setText(String.valueOf(currentItem.getWin_game()));
             baseViewHolder.custom_item_draw.setText(String.valueOf(currentItem.getDraw_game()));
-            baseViewHolder.custom_item_lose.setText(String .valueOf(currentItem.getLose_game()));
+            baseViewHolder.custom_item_lose.setText(String.valueOf(currentItem.getLose_game()));
 
             if (currentItem.getTotal_game() != 0) {
-                float me_total = (float) (currentItem.getWin_game() / currentItem.getTotal_game());
+                float me_total = ((float) currentItem.getWin_game() * 100 / currentItem.getTotal_game());
                 String str_rank_total = String.format("%.2f", me_total);
                 baseViewHolder.custom_item_rate.setText(str_rank_total);
-            }
-            else {
+            } else {
                 String str_rank_total = "0";
                 baseViewHolder.custom_item_rate.setText(str_rank_total);
             }
-
-            if(currentItem.getId() == id){
+            if (currentItem.getId() == id) {
                 baseViewHolder.linearLayout.setBackgroundColor(Color.rgb(70, 178, 206));
             }
         }
@@ -108,13 +106,13 @@ public class RankingRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public HeaderViewHolder(View v) {
             super(v);
-            custom_item_rank = (TextView)itemView.findViewById(R.id.rank);
-            custom_item_team_name = (TextView)itemView.findViewById(R.id.team_name);
-            custom_item_all = (TextView)itemView.findViewById(R.id.all);
-            custom_item_win = (TextView)itemView.findViewById(R.id.win);
-            custom_item_draw = (TextView)itemView.findViewById(R.id.draw);
-            custom_item_lose = (TextView)itemView.findViewById(R.id.lose);
-            custom_item_rate = (TextView)itemView.findViewById(R.id.rate);
+            custom_item_rank = (TextView) itemView.findViewById(R.id.rank);
+            custom_item_team_name = (TextView) itemView.findViewById(R.id.team_name);
+            custom_item_all = (TextView) itemView.findViewById(R.id.all);
+            custom_item_win = (TextView) itemView.findViewById(R.id.win);
+            custom_item_draw = (TextView) itemView.findViewById(R.id.draw);
+            custom_item_lose = (TextView) itemView.findViewById(R.id.lose);
+            custom_item_rate = (TextView) itemView.findViewById(R.id.rate);
         }
     }
 
@@ -130,14 +128,14 @@ public class RankingRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public BaseViewHolder(View v) {
             super(v);
-            custom_item_rank = (TextView)itemView.findViewById(R.id.rank);
-            custom_item_team_name = (TextView)itemView.findViewById(R.id.team_name);
-            custom_item_all = (TextView)itemView.findViewById(R.id.all);
-            custom_item_win = (TextView)itemView.findViewById(R.id.win);
-            custom_item_draw = (TextView)itemView.findViewById(R.id.draw);
-            custom_item_lose = (TextView)itemView.findViewById(R.id.lose);
-            custom_item_rate = (TextView)itemView.findViewById(R.id.rate);
-            linearLayout = (LinearLayout)itemView.findViewById(R.id.item_rank_recyclerview);
+            custom_item_rank = (TextView) itemView.findViewById(R.id.rank);
+            custom_item_team_name = (TextView) itemView.findViewById(R.id.team_name);
+            custom_item_all = (TextView) itemView.findViewById(R.id.all);
+            custom_item_win = (TextView) itemView.findViewById(R.id.win);
+            custom_item_draw = (TextView) itemView.findViewById(R.id.draw);
+            custom_item_lose = (TextView) itemView.findViewById(R.id.lose);
+            custom_item_rate = (TextView) itemView.findViewById(R.id.rate);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.item_rank_recyclerview);
         }
     }
 }

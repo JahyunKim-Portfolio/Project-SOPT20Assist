@@ -2,6 +2,9 @@ package com.appjam.assist.assist.team;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Network;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -31,6 +35,7 @@ import com.appjam.assist.assist.model.response.ResultMessage;
 import com.appjam.assist.assist.network.ApplicationController;
 import com.appjam.assist.assist.network.NetworkService;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -53,6 +58,7 @@ public class AddScheduleFragment extends Fragment {
     private NetworkService networkService;
     private int team_id;
     private LinearLayout layout;
+    Resources system;
 
     public AddScheduleFragment newInstance(String input_date) {
         Bundle args = new Bundle();
@@ -70,7 +76,8 @@ public class AddScheduleFragment extends Fragment {
         BaseActivity.setGlobalFont(getContext(), getActivity().getWindow().getDecorView());
 
         init();
-
+        set_timepicker_text_color();
+        
         layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -107,6 +114,57 @@ public class AddScheduleFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private void set_timepicker_text_color() {
+        system = Resources.getSystem();
+        int hour_numberpicker_id = system.getIdentifier("hour", "id", "android");
+        int minute_numberpicker_id = system.getIdentifier("minute", "id", "android");
+        int ampm_numberpicker_id = system.getIdentifier("amPm", "id", "android");
+
+        NumberPicker hour_numberpicker = (NumberPicker) timePicker.findViewById(hour_numberpicker_id);
+        NumberPicker minute_numberpicker = (NumberPicker) timePicker.findViewById(minute_numberpicker_id);
+        NumberPicker ampm_numberpicker = (NumberPicker) timePicker.findViewById(ampm_numberpicker_id);
+
+        set_numberpicker_text_colour(hour_numberpicker);
+        set_numberpicker_text_colour(minute_numberpicker);
+        set_numberpicker_text_colour(ampm_numberpicker);
+    }
+
+    private void set_numberpicker_text_colour(NumberPicker number_picker) {
+        final int count = number_picker.getChildCount();
+        final int color = getResources().getColor(R.color.colorWhite);
+
+        for(int i = 0; i < count; i++){
+            View child = number_picker.getChildAt(i);
+
+            try{
+                Field dividerField = number_picker.getClass().getDeclaredField("mSelectionDivider");
+                dividerField.setAccessible(true);
+                ColorDrawable colorDrawable = new ColorDrawable(getContext().getResources().getColor(R.color.colorWhite));
+                dividerField.set(number_picker, colorDrawable);
+
+                number_picker.invalidate();
+
+                Field wheelpaint_field = number_picker.getClass().getDeclaredField("mSelectorWheelPaint");
+                wheelpaint_field.setAccessible(true);
+
+                ((Paint)wheelpaint_field.get(number_picker)).setColor(color);
+                ((EditText)child).setTextColor(color);
+                number_picker.invalidate();
+            }
+            catch(NoSuchFieldException e){
+                Log.w("setNumberPickerTextColo", e);
+                // Log.w("setNumberPickerTextColor", e);
+            }
+            catch(IllegalAccessException e){
+                Log.w("setNumberPickerTextColo", e);
+            }
+            catch(IllegalArgumentException e){
+                Log.w("setNumberPickerTextColo", e);
+            }
+        }
+
     }
 
     private void saveSchedule() {
@@ -159,4 +217,6 @@ public class AddScheduleFragment extends Fragment {
         timePicker.setCurrentMinute(cur_minite);
         layout = (LinearLayout)v.findViewById(R.id.lin);
     }
+
+
 }

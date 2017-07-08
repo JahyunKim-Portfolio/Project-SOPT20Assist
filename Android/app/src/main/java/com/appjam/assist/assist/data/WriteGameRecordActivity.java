@@ -105,6 +105,17 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
     private boolean first_message = true;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("MyTag", "123");
+        gameData = (Game) getIntent().getSerializableExtra("gameData");
+        schedule_id = gameData.getId();
+        initData();
+        initNetwork();
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_game_record);
@@ -174,7 +185,14 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
                 nowFragment = 1;
                 tactic = "4-4-2";
 
+                form1.setClickable(false);
+                form2.setClickable(false);
+                form3.setClickable(false);
+                form4.setClickable(false);
+                form5.setClickable(false);
+
                 networkTactic(tactic);
+
             }
         });
 
@@ -190,6 +208,11 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
 
                 nowFragment = 2;
                 tactic = "3-4-3";
+                form1.setClickable(false);
+                form2.setClickable(false);
+                form3.setClickable(false);
+                form4.setClickable(false);
+                form5.setClickable(false);
 
                 networkTactic(tactic);
             }
@@ -207,6 +230,12 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
 
                 nowFragment = 3;
                 tactic = "4-3-3";
+                form1.setClickable(false);
+                form2.setClickable(false);
+                form3.setClickable(false);
+                form4.setClickable(false);
+                form5.setClickable(false);
+
 
                 networkTactic(tactic);
             }
@@ -223,6 +252,11 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
 
                 nowFragment = 4;
                 tactic = "3-5-2";
+                form1.setClickable(false);
+                form2.setClickable(false);
+                form3.setClickable(false);
+                form4.setClickable(false);
+                form5.setClickable(false);
 
                 networkTactic(tactic);
             }
@@ -239,6 +273,11 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
 
                 nowFragment = 5;
                 tactic = "4-5-1";
+                form1.setClickable(false);
+                form2.setClickable(false);
+                form3.setClickable(false);
+                form4.setClickable(false);
+                form5.setClickable(false);
 
                 networkTactic(tactic);
             }
@@ -255,6 +294,11 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
         result.enqueue(new Callback<TacticMemberResult>() {
             @Override
             public void onResponse(Call<TacticMemberResult> call, Response<TacticMemberResult> response) {
+                form1.setClickable(true);
+                form2.setClickable(true);
+                form3.setClickable(true);
+                form4.setClickable(true);
+                form5.setClickable(true);
                 if (response.isSuccessful()) {
                     atk_member = response.body().response.ATK;
                     mf_member = response.body().response.MF;
@@ -362,7 +406,7 @@ public class WriteGameRecordActivity extends BaseActivity implements OnClickButt
         }
 
         Glide.with(this)
-                .load("http://13.124.136.174:3000/static/images/profileImg/team/" + gameData.getProfile_url())
+                .load("http://13.124.136.174:3388/static/images/profileImg/team/" + gameData.getProfile_url())
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(iv_logo1);
     }

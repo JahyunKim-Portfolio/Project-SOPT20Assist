@@ -17,7 +17,7 @@ import com.appjam.assist.assist.MainActivity;
 import com.appjam.assist.assist.R;
 
 
-public class TeamMainActivity extends AppCompatActivity {
+public class TeamMainActivity extends BaseActivity {
     static final int ADD_SCHEDULE = 1000;
     Button  btn_main, btn_schedule, btn_member;
     private Button btn_home;

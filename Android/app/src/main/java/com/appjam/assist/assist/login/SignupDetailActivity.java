@@ -7,28 +7,29 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appjam.assist.assist.BaseActivity;
 import com.appjam.assist.assist.R;
-import com.appjam.assist.assist.model.request.Login;
 import com.appjam.assist.assist.model.request.SignUp;
 import com.appjam.assist.assist.model.response.Backnumber;
 import com.appjam.assist.assist.model.response.ResultCheck;
@@ -53,17 +54,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignupDetailActivity extends AppCompatActivity {
-    private Button btn_done;
-    private ImageButton btn_back;
+    private Button btn_done, btn_back;
     private Button btn_check_backnumber;
-    String email, name, pwd, age, height, weight, foot;
-    ArrayAdapter<CharSequence> adspin1, adspin2;
+    private LinearLayout linearLayout;
+    String email, name, pwd, age, height, weight;
+    ArrayAdapter<CharSequence> adspin1, adspin2, adspin_foot;
     private Spinner spinner1, spinner2;
-    String choice1, choice2;
+    String choice1, choice2, choice_foot;
     private ImageView iv_profile, iv_gallery;
     private static final int PICK_FROM_GALLERY = 0;
     private MultipartBody.Part body;
-    private EditText edit_age, edit_height, edit_weight, edit_foot, edit_backnum; //edit_position, edit_position_detail;
+    private EditText edit_age, edit_height, edit_weight, edit_backnum; //edit_position, edit_position_detail; edit_foot,
+    private Spinner spinner_foot;
     private boolean isCheck = false; // 등번호 체크에 사용
     private NetworkService networkService;
     private HashMap<String, RequestBody> map, map2;
@@ -75,8 +77,6 @@ public class SignupDetailActivity extends AppCompatActivity {
     private String whatView = "";
     private int type;
     private String token;
-    private LinearLayout linearLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,20 @@ public class SignupDetailActivity extends AppCompatActivity {
             }
         });
 
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window statusBar = getWindow();
+            statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            statusBar.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+
 //        Intent intent = getIntent();
 //        email = intent.getStringExtra("email");
 //        name = intent.getStringExtra("name");
@@ -101,37 +115,74 @@ public class SignupDetailActivity extends AppCompatActivity {
 //        type = intent.getIntExtra("type", 0);
 
         adspin1 = ArrayAdapter.createFromResource(this, R.array.spinnerPosition1_do, android.R.layout.simple_spinner_dropdown_item);
-        adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adspin1.setDropDownViewResource(R.layout.spinner_item);
         spinner1.setAdapter(adspin1);
+
+        adspin_foot = ArrayAdapter.createFromResource(this, R.array.spinnerFoot, android.R.layout.simple_spinner_dropdown_item);
+        //adspin_foot.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adspin_foot.setDropDownViewResource(R.layout.spinner_item);
+        spinner_foot.setAdapter(adspin_foot);
+
+        spinner_foot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                choice_foot = adspin_foot.getItem(position).toString();
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setText(parent.getSelectedItem().toString());
+                tv.setTextSize(13);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (adspin1.getItem(position).equals("수비수")) {
+                    String item = (String) parent.getItemAtPosition(position);
+                    ((TextView)parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
                     choice1 = "DF";
                     adspin2 = ArrayAdapter.createFromResource(SignupDetailActivity.this, R.array.spinnerDefense, android.R.layout.simple_spinner_dropdown_item);
-                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(R.layout.spinner_item);
                     spinner2.setAdapter(adspin2);
                 }
                 if (adspin1.getItem(position).equals("골키퍼")) {
                     choice1 = "GK";
                     adspin2 = ArrayAdapter.createFromResource(SignupDetailActivity.this, R.array.spinnerGoalkeeper, android.R.layout.simple_spinner_dropdown_item);
-                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(R.layout.spinner_item);
                     spinner2.setAdapter(adspin2);
+                    String item = (String) parent.getItemAtPosition(position);
+                    ((TextView)parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
                 }
                 if (adspin1.getItem(position).equals("공격수")) {
                     choice1 = "ATK";
                     adspin2 = ArrayAdapter.createFromResource(SignupDetailActivity.this, R.array.spinnerMid, android.R.layout.simple_spinner_dropdown_item);
-                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(R.layout.spinner_item);
                     spinner2.setAdapter(adspin2);
+                    String item = (String) parent.getItemAtPosition(position);
+                    ((TextView)parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
                 }
                 if (adspin1.getItem(position).equals("미드필더")) {
                     choice1 = "MF";
                     adspin2 = ArrayAdapter.createFromResource(SignupDetailActivity.this, R.array.spinnerMid, android.R.layout.simple_spinner_dropdown_item);
-                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(R.layout.spinner_item);
                     spinner2.setAdapter(adspin2);
+                    String item = (String) parent.getItemAtPosition(position);
+                    ((TextView)parent.getChildAt(0)).setTextSize(13);
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
                 }
 
             }
@@ -146,6 +197,14 @@ public class SignupDetailActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 choice2 = adspin2.getItem(position).toString();
+                String item = (String) parent.getItemAtPosition(position);
+                ((TextView)parent.getChildAt(0)).setTextSize(13);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
+
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setText(parent.getSelectedItem().toString());
+                tv.setTextSize(13);
+
             }
 
             @Override
@@ -153,6 +212,7 @@ public class SignupDetailActivity extends AppCompatActivity {
 
             }
         });
+
 
         iv_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +234,7 @@ public class SignupDetailActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "등번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (whatView.equals("make")) {
                     isCheck = true;
-                    Toast.makeText(getApplicationContext(), "등번호 체크할 필요 없지롱", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "어떠한 등번호라도 사용가능 합니다", Toast.LENGTH_SHORT).show();
                 } else {
                     int backnum_int = Integer.parseInt(backnum_string);
 
@@ -227,7 +287,6 @@ public class SignupDetailActivity extends AppCompatActivity {
                             public void onResponse(Call<ResultMessage> call, Response<ResultMessage> response) {
 
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                intent.putExtra("whatLogout", 0);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
@@ -251,7 +310,6 @@ public class SignupDetailActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
 
     private void makingTeamRequestBody() {
         Intent intent = getIntent();
@@ -348,10 +406,12 @@ public class SignupDetailActivity extends AppCompatActivity {
     }
 
     private void makingSignUpRequestBody() {
-        RequestBody password = null, requestBodytoken = null;
+        RequestBody password, requestBodytoken;
         if (type == 0) {
             password = RequestBody.create(MediaType.parse("text/pain"), SignUp.signUp.getPwd());
+            requestBodytoken = RequestBody.create(MediaType.parse("text/pain"), "");
         } else {
+            password = RequestBody.create(MediaType.parse("text/pain"), "");
             requestBodytoken = RequestBody.create(MediaType.parse("text/pain"), token);
         }
         RequestBody username = RequestBody.create(MediaType.parse("text/pain"), SignUp.signUp.getName());
@@ -359,7 +419,7 @@ public class SignupDetailActivity extends AppCompatActivity {
         RequestBody age = RequestBody.create(MediaType.parse("text/pain"), edit_age.getText().toString());
         RequestBody height = RequestBody.create(MediaType.parse("text/pain"), edit_height.getText().toString());
         RequestBody weight = RequestBody.create(MediaType.parse("text/pain"), edit_weight.getText().toString());
-        RequestBody foot = RequestBody.create(MediaType.parse("text/pain"), edit_foot.getText().toString());
+        RequestBody foot = RequestBody.create(MediaType.parse("text/pain"), choice_foot);
         RequestBody position = RequestBody.create(MediaType.parse("text/pain"), choice1);
         RequestBody position_detail = RequestBody.create(MediaType.parse("text/pain"), choice2);
         RequestBody backnumber = RequestBody.create(MediaType.parse("text/pain"), edit_backnum.getText().toString());
@@ -369,7 +429,7 @@ public class SignupDetailActivity extends AppCompatActivity {
         map2 = new HashMap<>();
         map2.put("username", username);
         map2.put("email", email);
-//        map2.put("password", password);
+        map2.put("password", password);
         map2.put("age", age);
         map2.put("height", height);
         map2.put("weight", weight);
@@ -378,13 +438,7 @@ public class SignupDetailActivity extends AppCompatActivity {
         map2.put("position_detail", position_detail);
         map2.put("backnumber", backnumber);
         map2.put("team_id", team_id);
-//        map2.put("token", requestBodytoken);
-
-        if (SignUp.signUp.getType() == 1) {
-            map2.put("token", requestBodytoken);
-        } else {
-            map2.put("password", password);
-        }
+        map2.put("token", requestBodytoken);
 
         // 프로필 사진
         if (imgUrl.equals("")) {
@@ -418,7 +472,6 @@ public class SignupDetailActivity extends AppCompatActivity {
         age = edit_age.getText().toString();
         height = edit_height.getText().toString();
         weight = edit_height.getText().toString();
-        foot = edit_foot.getText().toString();
 
         if (age.equals("")) {
             Toast.makeText(getApplicationContext(), "나이를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -429,17 +482,14 @@ public class SignupDetailActivity extends AppCompatActivity {
         } else if (weight.equals("")) {
             Toast.makeText(getApplicationContext(), "체중을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (foot.equals("")) {
-            Toast.makeText(getApplicationContext(), "주발을 입력해주세요.", Toast.LENGTH_SHORT).show();
-            return false;
         } else if (isCheck == false) {
-//            if (SignUp.signUp.getWhatView().equals("search")) {
-            Toast.makeText(getApplicationContext(), "등번호 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
-            return false;
-//            } else {
-//                isCheck = true; // make에서 온 것이라면 등번호 중복체크를 하지 않아도 된다.
-//                return false;
-//            }
+            if (SignUp.signUp.getWhatView().equals("search")) {
+                Toast.makeText(getApplicationContext(), "등번호 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
+                return false;
+            } else {
+                isCheck = true; // make에서 온 것이라면 등번호 중복체크를 하지 않아도 된다.
+                return false;
+            }
         } else {
             return true;
         }
@@ -494,10 +544,13 @@ public class SignupDetailActivity extends AppCompatActivity {
     }
 
     private void makingRequestBody() {
-        RequestBody password = null, requestBodytoken = null;
+        RequestBody password, requestBodytoken;
         if (SignUp.signUp.getType() == 0) {
             password = RequestBody.create(MediaType.parse("text/pain"), SignUp.signUp.getPwd());
+            requestBodytoken = RequestBody.create(MediaType.parse("text/pain"), "");
+
         } else {
+            password = RequestBody.create(MediaType.parse("text/pain"), "");
             requestBodytoken = RequestBody.create(MediaType.parse("text/pain"), SignUp.signUp.getToken());
         }
 
@@ -506,7 +559,7 @@ public class SignupDetailActivity extends AppCompatActivity {
         RequestBody age = RequestBody.create(MediaType.parse("text/pain"), edit_age.getText().toString());
         RequestBody height = RequestBody.create(MediaType.parse("text/pain"), edit_height.getText().toString());
         RequestBody weight = RequestBody.create(MediaType.parse("text/pain"), edit_weight.getText().toString());
-        RequestBody foot = RequestBody.create(MediaType.parse("text/pain"), edit_foot.getText().toString());
+        RequestBody foot = RequestBody.create(MediaType.parse("text/pain"), choice_foot);
         RequestBody position = RequestBody.create(MediaType.parse("text/pain"), choice1);
         RequestBody position_detail = RequestBody.create(MediaType.parse("text/pain"), choice2);
         RequestBody backnumber = RequestBody.create(MediaType.parse("text/pain"), edit_backnum.getText().toString());
@@ -515,6 +568,7 @@ public class SignupDetailActivity extends AppCompatActivity {
         map = new HashMap<>();
         map.put("username", username);
         map.put("email", email);
+        map.put("password", password);
         map.put("age", age);
         map.put("height", height);
         map.put("weight", weight);
@@ -526,8 +580,6 @@ public class SignupDetailActivity extends AppCompatActivity {
 
         if (SignUp.signUp.getType() == 1) {
             map.put("token", requestBodytoken);
-        } else {
-            map.put("password", password);
         }
 
     }
@@ -548,18 +600,21 @@ public class SignupDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        btn_back = (ImageButton) findViewById(R.id.btn_back);
+        btn_back = (Button) findViewById(R.id.btn_back);
         btn_done = (Button) findViewById(R.id.btn_done);
         btn_check_backnumber = (Button) findViewById(R.id.check_backnum);
         spinner1 = (Spinner) findViewById(R.id.spinnerPostion1);
         spinner2 = (Spinner) findViewById(R.id.spinnerPosition2);
+        spinner_foot = (Spinner) findViewById(R.id.spinner_foot);
         iv_profile = (ImageView) findViewById(R.id.iv_profile);
         iv_gallery = (ImageView) findViewById(R.id.iv_gallery);
+
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout_sign_detail);
 
         edit_age = (EditText) findViewById(R.id.sign_up_detail_age);
         edit_height = (EditText) findViewById(R.id.sign_up_detail_tall);
         edit_weight = (EditText) findViewById(R.id.sign_up_detail_weight);
-        edit_foot = (EditText) findViewById(R.id.sign_up_detail_foot);
+        //edit_foot = (EditText) findViewById(R.id.sign_up_detail_foot);
         edit_backnum = (EditText) findViewById(R.id.sign_up_detail_number);
     }
 

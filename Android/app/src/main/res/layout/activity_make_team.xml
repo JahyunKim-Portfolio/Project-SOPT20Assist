@@ -14,16 +14,16 @@
 
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/go_home" />
 
         <Button
             android:id="@+id/btn__search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary"
+            android:background="@null"
             android:text="팀 검색"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/large_text"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="74dp"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary"
+            android:background="@null"
             android:text="팀 창단"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/large_text"
